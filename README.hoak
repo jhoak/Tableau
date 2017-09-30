@@ -1,0 +1,15 @@
+----
+9/29/2017 -- First 2 commits (including the commit with this readme). Completed tasks:
+- Remove unused classes in core API: Everything other than Board, Zone, and Piece (and Time classes)
+will be useless or rendered useless by future commits to the other mentioned core classes.
+- Refactor the Board, Zone, and Piece classes: These were simplified so they would only contain
+attributes or behaviors (fields/methods) that have a use somewhere in the game creation process,
+i.e. need to be able to add a piece to a zone (Zone.AddPiece()) during gameplay, or need to be able
+to initialize a board with zones by dragging and dropping in the editor (hence the Board class has a
+Zone[] field). There are still other attributes/behaviors that ought to be added but will take more
+than a week to finish (say, next week?).
+
+Etc tasks:
+- Co-wrote design doc and presentation. Gave presentation in class.
+- Added quite a few important todos for the core API on the issue tracker, mostly things not listed
+in the schedule in our design doc/presentation.
