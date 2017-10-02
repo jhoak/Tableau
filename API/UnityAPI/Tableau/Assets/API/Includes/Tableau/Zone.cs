@@ -14,7 +14,11 @@ namespace Tableau.Base {
 
     public class SingleZone : Zone {
 
-        public Piece piece;
+        private Piece piece;
+
+        public Piece GetPiece() {
+            return piece;
+        }
 
         public bool IsEmpty() {
             return piece == null;
@@ -34,7 +38,9 @@ namespace Tableau.Base {
             }
         }
 
-        public bool CanReleasePiece() { return !this.IsEmpty(); }
+        public bool CanReleasePiece() {
+            return !this.IsEmpty();
+        }
 
         public bool ReleasePiece() {
             if (piece != null) {
@@ -43,11 +49,26 @@ namespace Tableau.Base {
             }
             return false;
         }
+
+        public void Start() {
+            Piece[] pieces = GetComponents<Piece>();
+            // Can't have more than 1 piece in a SingleZone
+            if (pieces.length > 1) {
+                throw new Exception("Zone " + this.name + " cannot hold more than 1 piece!");
+            }
+            else if (pieces.length == 1) {
+                piece = pieces[0];
+            }
+        }
     }
 
     public class MultiZone : Zone {
 
-        public Piece[] pieces;
+        private Piece[] pieces;
+
+        public Piece[] GetPieces() {
+            return pieces;
+        }
 
         public bool IsEmpty() {
             return pieces.length == 0;
@@ -100,7 +121,7 @@ namespace Tableau.Base {
                     mainIndex++;
                 }
                 else {
-                    Piece[] newPieces = new Piece[pieces.length * 2];
+                    Piece[] newPieces = new Piece[(int)((pieces.length + ps.length) * 1.2)];
                     for (int j = 0; j < pieces.length; j++) {
                         newPieces[j] = pieces[j];
                     }
@@ -159,6 +180,10 @@ namespace Tableau.Base {
                 }
                 return released;
             }
+        }
+
+        public void Start() {
+            pieces = GetComponents<Piece>();
         }
     }
 }
