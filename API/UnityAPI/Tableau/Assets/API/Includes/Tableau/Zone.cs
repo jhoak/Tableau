@@ -6,17 +6,19 @@ namespace Tableau.Base {
 
     public abstract class Zone : MonoBehaviour {
         // TODO comment
+        // TODO abstract methods from BasicZone
+        // TODO after abstract methods: move BasicZone into own file
         // TODO make hoverable, clickable (Sounds + animations), draggable (ie move chess sidelines)
         // TODO clamp piece(s) (if clamp is true) when zone is moved (presumably with board) / on
         // game start
         // TODO define piece manager that defines how pieces should be physically arranged, +whether
         // they should also clamp (and whether they should clamp to the center)
         // TODO physics (move with board)
+        // TODO logging
     }
 
     public class BasicZone : Zone {
-        
-        // fail (can)adds if piece already in zone
+
         public const int maxOccupants;
         private static const int DEFAULT_LEN = 8;
 
@@ -48,12 +50,12 @@ namespace Tableau.Base {
             return (maxOccupants == 0) ? false : (numOccupants == maxOccupants);
         }
 
-        public bool CanAddPiece(Piece p) {
+        public bool CanAdd(Piece p) {
             return !IsFull() && !PieceInZone(p);
         }
 
-        public bool AddPiece(Piece p) {
-            if ((p == null) || !CanAddPiece(p)) {
+        public bool Add(Piece p) {
+            if ((p == null) || !CanAdd(p)) {
                 return false;
             }
             else {
@@ -71,7 +73,7 @@ namespace Tableau.Base {
             return false; // shouldn't happen... but needed for compiler I think?
         }
 
-        public bool CanAddPieces(Piece[] ps) {
+        public bool CanAdds(Piece[] ps) {
             if (ps == null || ps.length == 0) {
                 return false;
             }
@@ -80,7 +82,7 @@ namespace Tableau.Base {
             }
             else {
                 foreach (Piece p in ps) {
-                    if (!CanAddPiece(p)) {
+                    if (!CanAdd(p)) {
                         return false;
                     }
                 }
@@ -88,8 +90,8 @@ namespace Tableau.Base {
             }
         }
 
-        public bool AddPieces(Piece[] ps) {
-            if (!CanAddPieces(ps)) {
+        public bool Adds(Piece[] ps) {
+            if (!CanAdds(ps)) {
                 return false;
             }
             else {
@@ -100,17 +102,17 @@ namespace Tableau.Base {
             }
         }
 
-        public bool CanReleasePiece(Piece p) {
+        public bool CanRelease(Piece p) {
             return PieceInZone(p);
         }
 
-        public bool ReleasePiece(Piece p) {
-            if (!CanReleasePiece(p)) {
+        public bool Release(Piece p) {
+            if (!CanRelease(p)) {
                 return false;
             }
             else {
                 for (int i = 0; i < occupants.length; i++) {
-                    if (p.equals(occupants[i])) {
+                    if (p.Equals(occupants[i])) {
                         occupants[i] = null;
                         numOccupants--;
                         return true;
@@ -148,11 +150,20 @@ namespace Tableau.Base {
                 return false;
             }
             for (int i = 0; i < occupants.length; i++) {
-                if (p.equals(occupants[i])) {
+                if (p.Equals(occupants[i])) {
                     return true;
                 }
             }
             return false;
+        }
+
+        public bool Equals(GameObject o) {
+            try {
+                return ((BasicZone)o) == this;
+            }
+            catch (Exception x) {
+                return false;
+            }
         }
     }
 }
