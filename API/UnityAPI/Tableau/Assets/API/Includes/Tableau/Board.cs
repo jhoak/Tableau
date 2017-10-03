@@ -5,9 +5,11 @@ using UnityEngine;
 namespace Tableau.Base {
 
 	public class Board : MonoBehaviour {
+        // TODO comment
 		// TODO make hoverable, clickable, draggable?? (Sounds + animations)
 		// TODO clamp zones to proper places on scene start, when board is moved
 		// TODO make sure Start can be easily redefined for multiplayer
+		// TODO physics
 
 		private Zone[] zones;
 
@@ -16,11 +18,11 @@ namespace Tableau.Base {
 		}
 
 		public Zone[] GetZones() {
-			return zones;
-		}
-
-		public void SetZones(Zone[] zs) {
-			zones = zs;
+			Zone[] copy = new Zone[zones.length];
+			for (int i = 0; i < zones.length; i++) {
+				copy[i] = zones[i];
+			}
+			return copy;
 		}
 	}
 }

@@ -5,185 +5,154 @@ using UnityEngine;
 namespace Tableau.Base {
 
     public abstract class Zone : MonoBehaviour {
-        // TODO make hoverable, clickable (Sounds + animations)
+        // TODO comment
+        // TODO make hoverable, clickable (Sounds + animations), draggable (ie move chess sidelines)
         // TODO clamp piece(s) (if clamp is true) when zone is moved (presumably with board) / on
         // game start
-        // TODO define piece manager that defines how pieces should be physically arranged, whether
-        // they should also clamp
+        // TODO define piece manager that defines how pieces should be physically arranged, +whether
+        // they should also clamp (and whether they should clamp to the center)
+        // TODO physics (move with board)
     }
 
-    public class SingleZone : Zone {
+    public class BasicZone : Zone {
+        
+        // fail (can)adds if piece already in zone
+        public const int maxOccupants;
+        private static const int DEFAULT_LEN = 8;
 
-        private Piece piece;
-
-        public Piece GetPiece() {
-            return piece;
-        }
-
-        public bool IsEmpty() {
-            return piece == null;
-        }
-
-        public bool CanAddPiece() {
-            return this.IsEmpty();
-        }
-
-        public bool AddPiece(Piece p) {
-            if ((p == null) || (!this.isEmpty())) {
-                return false;
-            }
-            else {
-                piece = p;
-                return true;
-            }
-        }
-
-        public bool CanReleasePiece() {
-            return !this.IsEmpty();
-        }
-
-        public bool ReleasePiece() {
-            if (piece != null) {
-                piece = null;
-                return true;
-            }
-            return false;
-        }
+        private Piece[] occupants;
+        private int numOccupants;
 
         public void Start() {
-            Piece[] pieces = GetComponents<Piece>();
-            // Can't have more than 1 piece in a SingleZone
-            if (pieces.length > 1) {
-                throw new Exception("Zone " + this.name + " cannot hold more than 1 piece!");
-            }
-            else if (pieces.length == 1) {
-                piece = pieces[0];
-            }
+            int initialLen = (maxOccupants != 0) ? maxOccupants : DEFAULT_LEN;
+            occupants = new Piece[initialLen];
+            numOccupants = 0;
         }
-    }
-
-    public class MultiZone : Zone {
-
-        private Piece[] pieces;
 
         public Piece[] GetPieces() {
-            return pieces;
+            Piece[] actualOccupants = new Piece[numOccupants];
+            for (int occIndex = 0, actualIndex = 0; occIndex < occupants.length; occIndex++) {
+                if (occupants[occIndex] != null) {
+                    actualOccupants[actualIndex] = occupants[occIndex];
+                    actualIndex++;
+                }
+            }
+            return actualOccupants;
         }
 
         public bool IsEmpty() {
-            return pieces.length == 0;
+            return numOccupants == 0;
         }
 
         public bool IsFull() {
-            return false;
+            return (maxOccupants == 0) ? false : (numOccupants == maxOccupants);
         }
 
-        public bool CanAddPiece() {
-            return !this.IsFull();
+        public bool CanAddPiece(Piece p) {
+            return !IsFull() && !PieceInZone(p);
         }
 
         public bool AddPiece(Piece p) {
-            if (!this.CanAddPiece()) {
+            if ((p == null) || !CanAddPiece(p)) {
                 return false;
             }
             else {
-                int i;
-                for (i = 0; i < pieces.length; i++) {
-                    if (pieces[i] == null) {
-                        pieces[i] = p;
+                if (numOccupants == occupants.length) {
+                    ResizeOccupantsArray();
+                }
+                for (int i = 0; i < occupants.length; i++) {
+                    if (occupants[i] == null) {
+                        occupants[i] = p;
+                        numOccupants++;
                         return true;
                     }
                 }
-                Piece[] newPieces = new Piece[pieces.length * 2];
-                for (int j = 0; j < pieces.length; j++) {
-                    newPieces[j] = pieces[j];
+            }
+            return false; // shouldn't happen... but needed for compiler I think?
+        }
+
+        public bool CanAddPieces(Piece[] ps) {
+            if (ps == null || ps.length == 0) {
+                return false;
+            }
+            else if (maxOccupants != 0 && ps.length > maxOccupants - numOccupants) {
+                return false;
+            }
+            else {
+                foreach (Piece p in ps) {
+                    if (!CanAddPiece(p)) {
+                        return false;
+                    }
                 }
-                pieces = newPieces;
-                pieces[i] = p;
                 return true;
             }
         }
 
-        public bool CanAddPieces() {
-            return !this.IsFull();
-        }
-
         public bool AddPieces(Piece[] ps) {
-            int pieceIndex = 0, mainIndex = 0;
-            while (pieceIndex < ps.length) {
-                Piece toAdd = ps[pieceIndex];
-                if ((mainIndex < pieces.length) && pieces[mainIndex] == null) {
-                    pieces[mainIndex] = toAdd;
-                    pieceIndex++;
-                    mainIndex++;
-                }
-                else if (mainIndex < pieces.length) {
-                    mainIndex++;
-                }
-                else {
-                    Piece[] newPieces = new Piece[(int)((pieces.length + ps.length) * 1.2)];
-                    for (int j = 0; j < pieces.length; j++) {
-                        newPieces[j] = pieces[j];
-                    }
-                    pieces = newPieces;
-                }
+            if (!CanAddPieces(ps)) {
+                return false;
             }
-            return true;
+            else {
+                while (ps.length > (occupants.length - numOccupants)) {
+                    ResizeOccupantsArray();
+                }
+                return true;
+            }
         }
 
         public bool CanReleasePiece(Piece p) {
-            if (p == null) {
-                return false;
-            }
-            else {
-                bool inArray = false;
-                for (int i = 0; i < pieces.length; i++) {
-                    if (pieces[i].equals(p)) {
-                        inArray = true;
-                        break;
-                    }
-                }
-                return inArray;
-            }
+            return PieceInZone(p);
         }
 
         public bool ReleasePiece(Piece p) {
-            if (p == null) {
+            if (!CanReleasePiece(p)) {
                 return false;
             }
             else {
-                for (int i = 0; i < pieces.length; i++) {
-                    if (pieces[i].equals(p)) {
-                        pieces[i] = null;
+                for (int i = 0; i < occupants.length; i++) {
+                    if (p.equals(occupants[i])) {
+                        occupants[i] = null;
+                        numOccupants--;
                         return true;
                     }
                 }
-                return false;
             }
+            return false; // shouldn't happen but needed for compiler?
         }
 
-        public bool CanReleaseAllPieces() {
-            return !this.isEmpty();
+        public bool CanReleaseAll() {
+            return numOccupants != 0;
         }
 
-        public bool ReleaseAllPieces() {
-            if (pieces.length == 0) {
+        public bool ReleaseAll() {
+            if (!CanReleaseAll()) {
                 return false;
             }
             else {
-                released = false;
-                for (int i = 0; i < pieces.length; i++) {
-                    if (pieces[i] != null) {
-                        pieces[i] = null;
-                        released = true;
-                    }
+                for (int i = 0; i < occupants.length; i++) {
+                    occupants[i] = null;
                 }
-                return released;
+                return true;
             }
+
+        private void ResizeOccupantsArray() {
+            Piece[] newOccs = new Piece[occupants.length * 2];
+            for (int i = 0; i < occupants.length; i++) {
+                newOccs[i] = occupants[i];
+            }
+            occupants = newOccs;
         }
 
-        public void Start() {
-            pieces = GetComponents<Piece>();
+        private bool PieceInZone(Piece p) {
+            if (p == null) {
+                return false;
+            }
+            for (int i = 0; i < occupants.length; i++) {
+                if (p.equals(occupants[i])) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
