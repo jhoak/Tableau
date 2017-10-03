@@ -4,14 +4,20 @@ using UnityEngine;
 
 namespace Tableau.Base {
 
+    /*
+     * A very basic implementation of a Zone. This can store any kind of Piece, up to a given max
+     * number of pieces. If the max is zero, then any number of Pieces may be stored.
+     */
     public class BasicZone : Zone {
 
-        public const int maxOccupants;
+		/* If the max is 0, then the 'occupants' array will be initialized to this length. */
         private static const int DEFAULT_LEN = 8;
 
+        public const int maxOccupants;
         private Piece[] occupants;
         private int numOccupants;
 
+        // This executes when the game scene loads.
         public void Start() {
             int initialLen = (maxOccupants != 0) ? maxOccupants : DEFAULT_LEN;
             occupants = new Piece[initialLen];
@@ -41,6 +47,7 @@ namespace Tableau.Base {
             return !IsFull() && !PieceInZone(p);
         }
 
+        // Attempts to add a given piece to the zone. Returns true if successful, else false.
         public bool Add(Piece p) {
             if ((p == null) || !CanAdd(p)) {
                 return false;
@@ -77,6 +84,7 @@ namespace Tableau.Base {
             }
         }
 
+        // Attempts to add the given pieces to the zone. Returns true if successful, else false.
         public bool Add(Piece[] ps) {
             if (!CanAdd(ps)) {
                 return false;
@@ -93,6 +101,7 @@ namespace Tableau.Base {
             return PieceInZone(p);
         }
 
+        // Attempts to remove the given piece from the zone. Returns true if successful, else false.
         public bool Release(Piece p) {
             if (!CanRelease(p)) {
                 return false;
@@ -113,6 +122,7 @@ namespace Tableau.Base {
             return numOccupants != 0;
         }
 
+        // Attempts to remove all pieces from the zone. Returns true if successful, else false.
         public bool ReleaseAll() {
             if (!CanReleaseAll()) {
                 return false;
@@ -123,6 +133,7 @@ namespace Tableau.Base {
                 }
                 return true;
             }
+        }
 
         private void ResizeOccupantsArray() {
             Piece[] newOccs = new Piece[occupants.length * 2];

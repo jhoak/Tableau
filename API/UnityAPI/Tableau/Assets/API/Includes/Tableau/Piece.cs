@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Tableau.Base {
 
+	/*
+	 * Represents an arbitrary game piece. This could be a card, a piece in a board game (e.g. the
+	 * horse or the thimble in Monopoly), or anything else really.
+	 */
 	public class Piece : MonoBehaviour {
-		// TODO comment
 		// TODO support more than just falling onto a tile, also what if being dragged?
 		// TODO make hoverable, clickable, draggable?? (Sounds + animations)
 		// TODO physics
@@ -13,6 +16,14 @@ namespace Tableau.Base {
 
 		private Zone occupiedZone; // the Zone that this Piece is in
 
+		/*
+		 * If this Piece collided with a Zone, and it looks like the Piece should belong to the
+		 * Zone, then this method tries to associate the two by putting the piece in the zone. This
+		 * illustrates the relationship between Pieces and Zones; Pieces usually tell Zones when to
+		 * add and release them, although Zones sometimes have special rules that prevent this (i.e.
+		 * you usually can't remove an entire card deck from the deck zone (unless, perhaps, you are
+		 * somehow allowed to draw every single card in your deck...)).
+		 */
 		void OnCollisionEnter(Collision c) {
 			// If it is colliding with the zone directly beneath it, it's in that zone.
 			// 1) Get the Zone (if any) that is straight down from this piece.
@@ -49,6 +60,10 @@ namespace Tableau.Base {
 			}
 		}
 
+		/*
+		 * Given a Zone and a contact point, returns true if the piece collided with a Zone and this
+		 * Zone just happens to be the same as the given Zone. Else, returns false.
+		 */
 		private bool CollidedWithZone(Zone z, ContactPoint cp) {
 			try {
 				Zone collidedWith = (Zone)cp.otherCollider.gameObject;
@@ -63,6 +78,10 @@ namespace Tableau.Base {
 			LeaveCurrentZone();
 		}
 
+		/*
+		 * Dissociates this Piece from the Zone it is occupying. This may not be possible if the
+		 * Zone has special rules that prevent the Piece from leaving the Zone.
+		 */
 		private bool LeaveCurrentZone() {
 			if (occupiedZone == null) {
 				return true;
