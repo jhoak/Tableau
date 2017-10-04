@@ -11,7 +11,7 @@ namespace Tableau.Base {
 	public class Piece : MonoBehaviour, Gazeable, Draggable {
 
 		private Zone occupiedZone; // the Zone that this Piece is in
-		public bool draggable;
+		public bool draggable = false;
 
 		/*
 		 * If this Piece collided with a Zone, and it looks like the Piece should belong to the

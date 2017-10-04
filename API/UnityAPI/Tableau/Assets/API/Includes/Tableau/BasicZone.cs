@@ -12,10 +12,10 @@ namespace Tableau.Base {
         /* If the max is 0, then the 'occupants' array will be initialized to this length. */
         private static const int DEFAULT_LEN = 8;
 
-        public const int maxOccupants;
-        public bool draggable;
+        public const int maxOccupants = 8;
         private Piece[] occupants;
         private int numOccupants;
+        public bool draggable = false;
 
         // This executes when the game scene loads.
         public void Start() {

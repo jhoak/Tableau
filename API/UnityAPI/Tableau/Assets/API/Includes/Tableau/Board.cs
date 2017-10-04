@@ -11,7 +11,7 @@ namespace Tableau.Base {
 	public class Board : MonoBehaviour, Gazeable, Draggable {
 		
 		protected Zone[] zones;
-		public bool draggable;
+		public bool draggable = false;
 
 		/*
 		 * When the game scene loads, stores all attached Zones for convenience. (By 'attached' I
