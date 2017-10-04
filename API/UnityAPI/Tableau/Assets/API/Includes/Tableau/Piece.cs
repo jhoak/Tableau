@@ -9,10 +9,6 @@ namespace Tableau.Base {
 	 * horse or the thimble in Monopoly), or anything else really.
 	 */
 	public class Piece : MonoBehaviour {
-		// TODO support more than just falling onto a tile, also what if being dragged?
-		// TODO make hoverable, clickable, draggable?? (Sounds + animations)
-		// TODO physics
-		// TODO logging
 
 		private Zone occupiedZone; // the Zone that this Piece is in
 

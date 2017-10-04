@@ -9,13 +9,8 @@ namespace Tableau.Base {
 	 * the spatial map, sometimes. e.g. the side lines in chess where taken pieces end up)
 	 */
 	public class Board : MonoBehaviour {
-        // TODO make hoverable, clickable, draggable?? (Sounds + animations)
-		// TODO clamp zones to proper places on scene start, when board is moved
-		// TODO make sure Start can be easily redefined for multiplayer
-		// TODO physics
-		// TODO logging
-
-		private Zone[] zones;
+		
+		protected Zone[] zones;
 
 		/*
 		 * When the game scene loads, stores all attached Zones for convenience. (By 'attached' I
