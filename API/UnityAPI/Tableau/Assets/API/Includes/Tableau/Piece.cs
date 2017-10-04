@@ -8,9 +8,10 @@ namespace Tableau.Base {
 	 * Represents an arbitrary game piece. This could be a card, a piece in a board game (e.g. the
 	 * horse or the thimble in Monopoly), or anything else really.
 	 */
-	public class Piece : MonoBehaviour {
+	public class Piece : MonoBehaviour, Gazeable, Draggable {
 
 		private Zone occupiedZone; // the Zone that this Piece is in
+		public bool draggable;
 
 		/*
 		 * If this Piece collided with a Zone, and it looks like the Piece should belong to the
@@ -103,5 +104,25 @@ namespace Tableau.Base {
 				return false;
 			}
 		}
+
+        public void OnDragStart(CursorEvent e) {
+            if (draggable) {
+                Vector3 cursorPosition = e.cursorPosition;
+                gameObject.transform.position = cursorPosition;
+            }
+        }
+
+        public void OnDragExit(CursorEvent e) {
+            // do nothing (basically just stop moving)
+        }
+
+        // do nothing on gaze or tap (can be overridden, of course)
+        public void OnGazeEnter(CursorEvent e) {}
+
+        public void OnGazeExit(CursorEvent e) {}
+
+        public void OnTapEnter(CursorEvent e) {}
+
+        public void OnTapExit(CursorEvent e) {}
 	}
 }

@@ -8,9 +8,10 @@ namespace Tableau.Base {
 	 * Generally means the main play area for a game. Zones usually get put on top of these (or
 	 * the spatial map, sometimes. e.g. the side lines in chess where taken pieces end up)
 	 */
-	public class Board : MonoBehaviour {
+	public class Board : MonoBehaviour, Gazeable, Draggable {
 		
 		protected Zone[] zones;
+		public bool draggable;
 
 		/*
 		 * When the game scene loads, stores all attached Zones for convenience. (By 'attached' I
@@ -27,5 +28,25 @@ namespace Tableau.Base {
 			}
 			return copy;
 		}
+
+        public void OnDragStart(CursorEvent e) {
+            if (draggable) {
+                Vector3 cursorPosition = e.cursorPosition;
+                gameObject.transform.position = cursorPosition;
+            }
+        }
+
+        public void OnDragExit(CursorEvent e) {
+            // do nothing (basically just stop moving)
+        }
+
+        // do nothing on gaze or tap (can be overridden, of course)
+        public void OnGazeEnter(CursorEvent e) {}
+
+        public void OnGazeExit(CursorEvent e) {}
+
+        public void OnTapEnter(CursorEvent e) {}
+
+        public void OnTapExit(CursorEvent e) {}
 	}
 }

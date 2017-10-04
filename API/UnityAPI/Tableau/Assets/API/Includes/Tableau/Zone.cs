@@ -11,7 +11,7 @@ namespace Tableau.Base {
      * map). It's just that those areas generally will not have a special effect or interaction with
      * these Pieces.
      */
-    public abstract class Zone : MonoBehaviour {
+    public abstract class Zone : MonoBehaviour, Gazeable, Draggable {
 
         /* Add a Piece to this Zone, and return true if successful. Otherwise, return false. */
         public abstract bool Add(Piece p);
@@ -21,5 +21,13 @@ namespace Tableau.Base {
 
         /* Return true if the given object is equivalent to this Zone, otherwise false. */
         public abstract bool Equals(GameObject o);
+
+        /* Required interface methods... */
+        public abstract void OnGazeEnter(CursorEvent e);
+        public abstract void OnGazeExit(CursorEvent e);
+        public abstract void OnTapEnter(CursorEvent e);
+        public abstract void OnTapExit(CursorEvent e);
+        public abstract void OnDragStart(CursorEvent e);
+        public abstract void OnDragEnd(CursorEvent e);
     }
 }

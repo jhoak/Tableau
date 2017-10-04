@@ -13,6 +13,7 @@ namespace Tableau.Base {
         private static const int DEFAULT_LEN = 8;
 
         public const int maxOccupants;
+        public bool draggable;
         private Piece[] occupants;
         private int numOccupants;
 
@@ -162,5 +163,25 @@ namespace Tableau.Base {
                 return false;
             }
         }
+
+        public void OnDragStart(CursorEvent e) {
+            if (draggable) {
+                Vector3 cursorPosition = e.cursorPosition;
+                gameObject.transform.position = cursorPosition;
+            }
+        }
+
+        public void OnDragExit(CursorEvent e) {
+            // do nothing (basically just stop moving)
+        }
+
+        // do nothing on gaze or tap (can be overridden, of course)
+        public void OnGazeEnter(CursorEvent e) {}
+
+        public void OnGazeExit(CursorEvent e) {}
+
+        public void OnTapEnter(CursorEvent e) {}
+
+        public void OnTapExit(CursorEvent e) {}
     }
 }
