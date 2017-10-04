@@ -1,4 +1,26 @@
 ----
+10/6/2017 -- Completed tasks:
+- Refactor core (again) as some existing attributes and behaviors from last week made less sense
+this week when considering use cases both in the editor and in an actual created game. In
+particular, the two basic Zone implementations were unified into one class; required behaviors were
+outlined in the abstract Zone class; and Pieces have been redesigned so they are primarily the ones
+who control whether a Zone "owns" them or not (although certain Zone rules, according to game rules
+specified by game programmers, may prevent a Piece from "disowning" itself from its Zone.
+- Boards, Zones, and Pieces now work with the cursor. That means they can generally be tapped
+(analogous to a mouse click), gazed at (hovered over with a mouse cursor) or dragged around in game.
+For now, these base classes only have dragging enabled, but subclasses can override this behavior
+(future templates will certainly do this, e.g. to play animations and sounds on mouse interactions).
+- Any of the above concrete classes (or subclasses) can basically be dragged and dropped onto a
+game object, so that that object will behave as the thing attached to it. This is one feature that
+will make it easier for devs to import their own boards, game pieces, etc.
+- Pieces have also been designed in such a way that they can "just work" by instantiating them in
+the Unity editor. By physically placing them above an appropriate Zone (or Board, or the spatial
+map (which is just the HoloLens's representation of the physical world)), Pieces will automatically
+be associated with the Zone right underneath them. So you don't need to drag and drop them in the
+Hierarchy, or add them as an attribute or sub-component. It's as simple as creating them and moving
+them where you want them to start when the game loads.
+
+----
 9/29/2017 -- First 2 commits (including the commit with this readme). Completed tasks:
 - Remove unused classes in core API: Everything other than Board, Zone, and Piece (and Time classes)
 will be useless or rendered useless by future commits to the other mentioned core classes.
