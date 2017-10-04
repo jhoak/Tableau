@@ -9,8 +9,7 @@ namespace Tableau.Base {
      * number of pieces. If the max is zero, then any number of Pieces may be stored.
      */
     public class BasicZone : Zone {
-
-		/* If the max is 0, then the 'occupants' array will be initialized to this length. */
+        /* If the max is 0, then the 'occupants' array will be initialized to this length. */
         private static const int DEFAULT_LEN = 8;
 
         public const int maxOccupants;

@@ -12,10 +12,6 @@ namespace Tableau.Base {
      * these Pieces.
      */
     public abstract class Zone : MonoBehaviour {
-        // TODO clamp piece(s) (if clamp is true) when zone is moved (presumably with board) / on
-        // game start
-        // TODO define piece manager that defines how pieces should be physically arranged, +whether
-        // they should also clamp (and whether they should clamp to the center)
 
         /* Add a Piece to this Zone, and return true if successful. Otherwise, return false. */
         public abstract bool Add(Piece p);
