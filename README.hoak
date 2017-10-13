@@ -1,4 +1,30 @@
 ----
+10/13/2017 -- Completed tasks:
+- Sizing game objects properly for the HoloLens: Any Board, Zone, or Piece (except for cards) ought
+to be no more than 1x1x1 (that is, 1 meter x 1m x 1m), and a warning will be printed to the log for
+every object whose renderer/collider's bounds exceed this size in at least 1 dimension.* So
+programmers can use these dimensions as a guideline, e.g. make a Board that is at most 1x1 (length
+x width) and then scale their zones and pieces to visually fit the board, which basically solves
+this problem in the general case. More specific objects may have more restricted sizes, and this
+should be implemented as needed; for example, most Cards ought not be more than 0.0889 units tall
+and 0.0635 units wide, because standard playing cards are 88.9mm tall and 63.5mm wide, and every 1
+meter is 1 unit of distance in Unity.
+- Added a general TableauObject class that essentially stands for any physical object that Tableau
+uses (usually inheriting from Board, Zone, or Piece). It shouldn't be used for non-physical things
+like EventManagers or other classes that work "behind the scenes".
+
+Etc:
+- Spent 2 hours testing object sizes at the Interactive Commons, using a real HoloLens they
+provided. Also spent 3 hours fixing my development VM after a certain update bricked the machine.
+
+* It might seem weird at first that Pieces and Zones (which are usually smaller than a Board)
+share the same size restrictions that a Board has (1x1x1). But some games do have pieces that span
+the length or width of the board, as well as extremely tall pieces that serve as a centerpiece for
+the board. Anyway, the 1x1x1 is still more of a guideline for sizing everything; players can still
+make gigantic boards, pieces, and zones if they want, especially if they want to make life-sized
+versions of games like Chess.
+
+----
 10/6/2017 -- Completed tasks:
 - Refactor core (again) as some existing attributes and behaviors from last week made less sense
 this week when considering use cases both in the editor and in an actual created game. In
