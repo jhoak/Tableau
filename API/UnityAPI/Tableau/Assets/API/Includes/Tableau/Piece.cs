@@ -144,7 +144,7 @@ namespace Tableau.Base {
             }
             finally {
                 // Note: 1 unit corresponds to 1 meter in the real world, here
-                if (size != null && size.x > 1 && size.y > 1 && size.z > 1) {
+                if (size != null && (size.x > 1 || size.y > 1 || size.z > 1)) {
                     Debug.LogWarning(
                         "This board might be too big (%d, %d, %d)!",
                         size.x,

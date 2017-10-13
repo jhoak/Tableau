@@ -9,7 +9,7 @@ namespace Tableau.Base {
      * the spatial map, sometimes. e.g. the side lines in chess where taken pieces end up)
      */
     public class Board : TableauObject {
-        
+
         protected Zone[] zones;
         public bool draggable = false;
 
@@ -65,7 +65,7 @@ namespace Tableau.Base {
             }
             finally {
                 // Note: 1 unit corresponds to 1 meter in the real world, here
-                if (size != null && size.x > 1 && size.y > 1 && size.z > 1) {
+                if (size != null && (size.x > 1 || size.y > 1 || size.z > 1)) {
                     Debug.LogWarning(
                         "This board might be too big (%d, %d, %d)!",
                         size.x,
