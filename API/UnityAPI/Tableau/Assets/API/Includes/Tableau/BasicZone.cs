@@ -19,6 +19,7 @@ namespace Tableau.Base {
 
         // This executes when the game scene loads.
         public void Start() {
+            base.Start();
             int initialLen = (maxOccupants != 0) ? maxOccupants : DEFAULT_LEN;
             occupants = new Piece[initialLen];
             numOccupants = 0;
@@ -183,5 +184,31 @@ namespace Tableau.Base {
         public void OnTapEnter(CursorEvent e) {}
 
         public void OnTapExit(CursorEvent e) {}
+
+        public void WarnIfOversized() {
+            Vector3 size = null;
+            try {
+                size = GetComponent<Renderer>().bounds.size;
+            }
+            catch (Exception x) {
+                try {
+                    size = GetComponent<Collider>().bounds.size;
+                }
+                catch (Exception x) {
+                    // don't do anything...we'll let the programmer figure it out at this point
+                }
+            }
+            finally {
+                // Note: 1 unit corresponds to 1 meter in the real world, here
+                if (size != null && size.x > 1 && size.y > 1 && size.z > 1) {
+                    Debug.LogWarning(
+                        "This board might be too big (%d, %d, %d)!",
+                        size.x,
+                        size.y,
+                        size.z
+                    );
+                }
+            }
+        }
     }
 }
