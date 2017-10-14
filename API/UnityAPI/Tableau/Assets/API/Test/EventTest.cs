@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Tableau.Util;
 
 public class EventTest : MonoBehaviour {
 
-    private Func<void> listener1; 
-    private Func<void> listener2; 
-    private Func<void> listener3;
+    private Action listener1; 
+    private Action listener2; 
+    private Action listener3;
 
     private void Awake() {
 

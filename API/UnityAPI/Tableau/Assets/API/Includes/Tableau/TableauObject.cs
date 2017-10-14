@@ -13,7 +13,6 @@ namespace Tableau.Base {
         public abstract void OnTapExit(CursorEvent e);
         public abstract void OnDragStart(CursorEvent e);
         public abstract void OnDragEnd(CursorEvent e);
-        public abstract void setID(int id);
         public abstract int getID();
 
         /*

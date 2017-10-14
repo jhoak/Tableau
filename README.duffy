@@ -1,3 +1,6 @@
+10/20/2017 -- Completed tasks:
+- Finished the ID assignment functionality. All Tableau objects will now be assigned a unique ID on creation. Updated Equals methods to use these IDs which means they will compile with Unity now!
+
 ----
 10/13/2017 -- Completed tasks:
 - Cleared up all compile-time errors for a second time and threw the eventTest script on a test scene in Unity, we are now able to create scenes within Unity. However, there will have to be some changes to the code in order for Unity to accept it (Particularly the Equals() methods, which use an explicit cast from a GameObject which results in a compile-time error on the Unity end)

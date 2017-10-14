@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Tableau.Util;
 
 namespace Tableau.Base {
 
@@ -16,6 +17,7 @@ namespace Tableau.Base {
         private Piece[] occupants;
         private int numOccupants;
         public bool draggable = false;
+        private int id;
 
 
 
@@ -25,6 +27,7 @@ namespace Tableau.Base {
             int initialLen = (maxOccupants != 0) ? maxOccupants : DEFAULT_LEN;
             occupants = new Piece[initialLen];
             numOccupants = 0;
+            id = IDManager.getNewZoneID();
         }
 
         public Piece[] GetPieces() {
@@ -163,13 +166,12 @@ namespace Tableau.Base {
         //Unity thinks there is an error bc of this cast. We'll have to find a different way to do equals;
         override
         public bool Equals(GameObject o) {
-            /*try {
-                return ((BasicZone)o) == this;
-            }
-            catch (Exception x) {
+            BasicZone otherPiece = o.GetComponent<BasicZone>();
+            if (otherPiece.getID() == this.id){
+                return true;
+            }else{
                 return false;
-            }*/
-            return true;
+            }  
         }
 
         override
@@ -217,6 +219,10 @@ namespace Tableau.Base {
                     );
                 }
             }
+        }
+
+         override public int getID(){
+            return id;
         }
     }
 }

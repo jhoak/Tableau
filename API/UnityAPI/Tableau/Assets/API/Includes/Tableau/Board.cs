@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Tableau.Util;
 
 namespace Tableau.Base {
 
@@ -12,6 +13,7 @@ namespace Tableau.Base {
 
         protected Zone[] zones;
         public bool draggable = false;
+        private int id;
 
         /*
          * When the game scene loads, stores all attached Zones for convenience. (By 'attached' I
@@ -21,6 +23,7 @@ namespace Tableau.Base {
         public void Start() {
             base.Start();
             zones = GetComponents<Zone>();
+            id = IDManager.getNewBoardID();
         }
 
         public Zone[] GetZones() {
@@ -81,6 +84,10 @@ namespace Tableau.Base {
                     );
                 }
             }
+        }
+
+        override public int getID() {
+            return id;
         }
     }
 }

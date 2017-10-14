@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Tableau.Util;
 
 namespace Tableau.Base {
 
@@ -12,12 +13,12 @@ namespace Tableau.Base {
 
         private Zone occupiedZone; // the Zone that this Piece is in
         public bool draggable = false;
-        public int id;
+        private int id;
 
         override
         public void Start() {
             base.Start();
-            EventManager.TriggerEvent("newPiece");
+            id = IDManager.getNewPieceID();
         }
 
         /*
@@ -71,9 +72,7 @@ namespace Tableau.Base {
          */
         private bool CollidedWithZone(Zone z, ContactPoint cp) {
             try {
-                collidedWith = (Zone)cp.otherCollider.gameObject.GetType();
-                Zone collidedWith = new BasicZone();
-                return z.Equals(collidedWith);
+                return z.Equals(cp.otherCollider.gameObject);
             }
             catch (Exception x) {
                 return false;
@@ -106,16 +105,14 @@ namespace Tableau.Base {
             }
         }
 
-        /*Unity will not run with this cast in place*/
+        
         public bool Equals(GameObject o) {
-
-            /*try {
-                return ((Piece)o) == this;
-            }
-            catch (Exception x) {
+            Piece otherPiece = o.GetComponent<Piece>();
+            if (otherPiece.getID() == this.id){
+                return true;
+            }else{
                 return false;
-            }*/
-            return true;
+            }                
         }
 
         override
@@ -168,8 +165,8 @@ namespace Tableau.Base {
             }
         }
 
-        override void setID(int id){
-
+        override public int getID(){
+            return id;
         }
     }
 }
