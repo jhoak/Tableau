@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Tableau;
 
 public class EventManager : MonoBehaviour {
     
     //we can change this from being a string, to maybe taking a class or struct to pass along parameters
-    private Dictionary<string, Action> eventDictionary;
+    private Dictionary<string, Function> eventDictionary;
 
     private static EventManager eventManager;
 
@@ -28,14 +29,14 @@ public class EventManager : MonoBehaviour {
     void Init() {
 
         if(eventDictionary == null) {
-            eventDictionary = new Dictionary<string, Action>();
+            eventDictionary = new Dictionary<string, Function>();
         }
 
     }
 
-    public static void StartListening(string eventName, Action listener) {
+    public static void StartListening(string eventName, Function listener) {
 
-        Action thisEvent;
+        Function thisEvent;
 
         if(instance.eventDictionary.TryGetValue(eventName, out thisEvent)) {
             //add another event to existing one
@@ -49,9 +50,9 @@ public class EventManager : MonoBehaviour {
         }
     }
 
-    public static void StopListening(string eventName, Action listener) {
+    public static void StopListening(string eventName, Function listener) {
         if (eventManager == null) return;
-        Action thisEvent;
+        Function thisEvent;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent)) {
             //remove event from existing one
             thisEvent -= listener;
@@ -62,10 +63,9 @@ public class EventManager : MonoBehaviour {
     }
 
     public static void TriggerEvent(string eventName) {
-        Action thisEvent = null;
+        Function thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent)) {
             thisEvent.Invoke();
-            // OR USE instance.eventDictionary[eventName]();
         }
     }
 

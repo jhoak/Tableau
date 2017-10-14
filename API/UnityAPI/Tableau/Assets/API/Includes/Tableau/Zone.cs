@@ -33,5 +33,7 @@ namespace Tableau.Base {
         public override abstract void OnDragStart(CursorEvent e);
         public override abstract void OnDragEnd(CursorEvent e);
         public override abstract void WarnIfOversized();
+        public override abstract void setID(int id);
+        public override abstract int getID();
     }
 }

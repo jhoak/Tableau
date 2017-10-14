@@ -17,6 +17,8 @@ namespace Tableau.Base {
         private int numOccupants;
         public bool draggable = false;
 
+
+
         // This executes when the game scene loads.
         public override void Start() {
             base.Start();

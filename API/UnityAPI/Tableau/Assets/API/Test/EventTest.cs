@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class EventTest : MonoBehaviour {
 
-    private Action listener1; 
-    private Action listener2; 
-    private Action listener3;
+    private Func<void> listener1; 
+    private Func<void> listener2; 
+    private Func<void> listener3;
 
     private void Awake() {
 

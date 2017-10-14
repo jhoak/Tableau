@@ -12,10 +12,12 @@ namespace Tableau.Base {
 
         private Zone occupiedZone; // the Zone that this Piece is in
         public bool draggable = false;
+        public int id;
 
         override
         public void Start() {
             base.Start();
+            EventManager.TriggerEvent("newPiece");
         }
 
         /*
@@ -69,7 +71,7 @@ namespace Tableau.Base {
          */
         private bool CollidedWithZone(Zone z, ContactPoint cp) {
             try {
-                //Zone collidedWith = (Zone)cp.otherCollider.gameObject; Unity will not allow this cast
+                collidedWith = (Zone)cp.otherCollider.gameObject.GetType();
                 Zone collidedWith = new BasicZone();
                 return z.Equals(collidedWith);
             }
@@ -164,6 +166,10 @@ namespace Tableau.Base {
                     );
                 }
             }
+        }
+
+        override void setID(int id){
+
         }
     }
 }

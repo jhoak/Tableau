@@ -1,0 +1,16 @@
+----
+10/13/2017 -- Completed tasks:
+- Cleared up all compile-time errors for a second time and threw the eventTest script on a test scene in Unity, we are now able to create scenes within Unity. However, there will have to be some changes to the code in order for Unity to accept it (Particularly the Equals() methods, which use an explicit cast from a GameObject which results in a compile-time error on the Unity end)
+Tasks in Progress:
+-Working on an ID system that will assign a unique id to each TableauObject and set this ID as their Tag. This will solve the issue of not being about to explicitly cast GameObjects in the Equals methods.
+
+----
+10/6/2017 -- Completed tasks:
+- added EventManager that will work for any arbitrary event as long as it is named with a unique string. Also added a Test script that demonstrates how to use it. 
+- Went through and cleared up all compile-time errors which was necessary in order to create and run a scene in Unity. ***(This entire commit was messed up and didn't completely go through, spent a few hours in next week redoing this work..)***
+
+----
+9/28/2017
+
+Etc tasks:
+- Co-wrote design doc and presentation. Gave presentation in class.
