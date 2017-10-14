@@ -17,7 +17,7 @@ namespace Tableau.Base {
         /*
          * The start shared by all TableauObjects in general. Should be called by subclasses 1st.
          */
-        public void Start() {
+        public virtual void Start() {
             WarnIfOversized();
         }
 

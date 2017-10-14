@@ -10,7 +10,7 @@ namespace Tableau.Base {
      */
     public class BasicZone : Zone {
         /* If the max is 0, then the 'occupants' array will be initialized to this length. */
-        private static const int DEFAULT_LEN = 8;
+        private const int DEFAULT_LEN = 8;
 
         public const int maxOccupants = 8;
         private Piece[] occupants;
@@ -18,7 +18,7 @@ namespace Tableau.Base {
         public bool draggable = false;
 
         // This executes when the game scene loads.
-        public void Start() {
+        public override void Start() {
             base.Start();
             int initialLen = (maxOccupants != 0) ? maxOccupants : DEFAULT_LEN;
             occupants = new Piece[initialLen];
@@ -27,7 +27,7 @@ namespace Tableau.Base {
 
         public Piece[] GetPieces() {
             Piece[] actualOccupants = new Piece[numOccupants];
-            for (int occIndex = 0, actualIndex = 0; occIndex < occupants.length; occIndex++) {
+            for (int occIndex = 0, actualIndex = 0; occIndex < occupants.Length; occIndex++) {
                 if (occupants[occIndex] != null) {
                     actualOccupants[actualIndex] = occupants[occIndex];
                     actualIndex++;
@@ -49,15 +49,16 @@ namespace Tableau.Base {
         }
 
         // Attempts to add a given piece to the zone. Returns true if successful, else false.
+        override
         public bool Add(Piece p) {
             if ((p == null) || !CanAdd(p)) {
                 return false;
             }
             else {
-                if (numOccupants == occupants.length) {
+                if (numOccupants == occupants.Length) {
                     ResizeOccupantsArray();
                 }
-                for (int i = 0; i < occupants.length; i++) {
+                for (int i = 0; i < occupants.Length; i++) {
                     if (occupants[i] == null) {
                         occupants[i] = p;
                         numOccupants++;
@@ -69,10 +70,10 @@ namespace Tableau.Base {
         }
 
         public bool CanAdd(Piece[] ps) {
-            if (ps == null || ps.length == 0) {
+            if (ps == null || ps.Length == 0) {
                 return false;
             }
-            else if (maxOccupants != 0 && ps.length > maxOccupants - numOccupants) {
+            else if (maxOccupants != 0 && ps.Length > maxOccupants - numOccupants) {
                 return false;
             }
             else {
@@ -91,7 +92,7 @@ namespace Tableau.Base {
                 return false;
             }
             else {
-                while (ps.length > (occupants.length - numOccupants)) {
+                while (ps.Length > (occupants.Length - numOccupants)) {
                     ResizeOccupantsArray();
                 }
                 return true;
@@ -103,12 +104,13 @@ namespace Tableau.Base {
         }
 
         // Attempts to remove the given piece from the zone. Returns true if successful, else false.
+        override
         public bool Release(Piece p) {
             if (!CanRelease(p)) {
                 return false;
             }
             else {
-                for (int i = 0; i < occupants.length; i++) {
+                for (int i = 0; i < occupants.Length; i++) {
                     if (p.Equals(occupants[i])) {
                         occupants[i] = null;
                         numOccupants--;
@@ -129,7 +131,7 @@ namespace Tableau.Base {
                 return false;
             }
             else {
-                for (int i = 0; i < occupants.length; i++) {
+                for (int i = 0; i < occupants.Length; i++) {
                     occupants[i] = null;
                 }
                 return true;
@@ -137,8 +139,8 @@ namespace Tableau.Base {
         }
 
         private void ResizeOccupantsArray() {
-            Piece[] newOccs = new Piece[occupants.length * 2];
-            for (int i = 0; i < occupants.length; i++) {
+            Piece[] newOccs = new Piece[occupants.Length * 2];
+            for (int i = 0; i < occupants.Length; i++) {
                 newOccs[i] = occupants[i];
             }
             occupants = newOccs;
@@ -148,7 +150,7 @@ namespace Tableau.Base {
             if (p == null) {
                 return false;
             }
-            for (int i = 0; i < occupants.length; i++) {
+            for (int i = 0; i < occupants.Length; i++) {
                 if (p.Equals(occupants[i])) {
                     return true;
                 }
@@ -156,15 +158,19 @@ namespace Tableau.Base {
             return false;
         }
 
+        //Unity thinks there is an error bc of this cast. We'll have to find a different way to do equals;
+        override
         public bool Equals(GameObject o) {
-            try {
+            /*try {
                 return ((BasicZone)o) == this;
             }
             catch (Exception x) {
                 return false;
-            }
+            }*/
+            return true;
         }
 
+        override
         public void OnDragStart(CursorEvent e) {
             if (draggable) {
                 Vector3 cursorPosition = e.cursorPosition;
@@ -172,21 +178,24 @@ namespace Tableau.Base {
             }
         }
 
-        public void OnDragExit(CursorEvent e) {
+        override
+        public void OnDragEnd(CursorEvent e) {
             // do nothing (basically just stop moving)
         }
 
         // do nothing on gaze or tap (can be overridden, of course)
+        override
         public void OnGazeEnter(CursorEvent e) {}
-
+        override
         public void OnGazeExit(CursorEvent e) {}
-
+        override
         public void OnTapEnter(CursorEvent e) {}
-
+        override
         public void OnTapExit(CursorEvent e) {}
 
+        override
         public void WarnIfOversized() {
-            Vector3 size = null;
+            Vector3 size = new Vector3(0, 0, 0);
             try {
                 size = GetComponent<Renderer>().bounds.size;
             }
@@ -194,7 +203,7 @@ namespace Tableau.Base {
                 try {
                     size = GetComponent<Collider>().bounds.size;
                 }
-                catch (Exception x) {
+                catch (Exception ex) {
                     // don't do anything...we'll let the programmer figure it out at this point
                 }
             }
@@ -202,10 +211,7 @@ namespace Tableau.Base {
                 // Note: 1 unit corresponds to 1 meter in the real world, here
                 if (size != null && (size.x > 1 || size.y > 1 || size.z > 1)) {
                     Debug.LogWarning(
-                        "This board might be too big (%d, %d, %d)!",
-                        size.x,
-                        size.y,
-                        size.z
+                        "This board might be too big (" + size.x + ", " + size.y + ", " + size.z + ")!"
                     );
                 }
             }

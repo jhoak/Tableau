@@ -14,15 +14,15 @@ public class ButtonBehaviour : MonoBehaviour {
     {
         if (OnTap != null)
         {
-            EventManager.instance.AddEvent(TableauEventTypes.Tap, gameObject, OnTap);
+            //EventManager.instance.AddEvent(TableauEventTypes.Tap, gameObject, OnTap);
         }
         if (OnGazeEnter != null)
         {
-            EventManager.instance.AddEvent(TableauEventTypes.GazeEnter, gameObject, OnGazeEnter);
+         //   EventManager.instance.AddEvent(TableauEventTypes.GazeEnter, gameObject, OnGazeEnter);
         }
         if (OnGazeExit != null)
         {
-            EventManager.instance.AddEvent(TableauEventTypes.GazeExit, gameObject, OnGazeExit);
+           // EventManager.instance.AddEvent(TableauEventTypes.GazeExit, gameObject, OnGazeExit); this was old EventManager
         }
     }
 }

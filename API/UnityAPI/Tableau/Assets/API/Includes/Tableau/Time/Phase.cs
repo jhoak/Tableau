@@ -9,7 +9,7 @@ namespace Tableau.Time
 	{
 		public string name;
 		public int ID;
-		public Character owner;
+		//public Character owner;
 		public Queue<Action> events;
 			
 		public Phase(string name, int ID)
@@ -18,12 +18,13 @@ namespace Tableau.Time
 			events = new Queue<Action>();
 		}	
 
+        /* Character isn't a thing yet
 		public Phase(string name, int ID, Character owner)
 		{
 			this.name = name;
-			this.owner = owner;
+			//this.owner = owner;
 			events = new Queue<Action>();
-		}
+		}*/
 			
 		
 		public virtual void addEvent(Action a)

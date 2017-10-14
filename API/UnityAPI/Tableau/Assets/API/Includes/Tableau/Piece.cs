@@ -13,6 +13,7 @@ namespace Tableau.Base {
         private Zone occupiedZone; // the Zone that this Piece is in
         public bool draggable = false;
 
+        override
         public void Start() {
             base.Start();
         }
@@ -36,7 +37,8 @@ namespace Tableau.Base {
                 // 2) we hit something! is it a zone?
                 GameObject rayCollidedWith = hitInfo.collider.gameObject;
                 try {
-                    Zone rayCollidedZone = (Zone)rayCollidedWith;
+                    ///Zone rayCollidedZone = (Zone)rayCollidedWith;    This type of casting will not work with Unity.
+                    Zone rayCollidedZone = new BasicZone();
                     // 3) Now see if the Collision object also has this zone.
                     foreach (ContactPoint cp in c.contacts) {
                         if (CollidedWithZone(rayCollidedZone, cp)) {
@@ -67,7 +69,8 @@ namespace Tableau.Base {
          */
         private bool CollidedWithZone(Zone z, ContactPoint cp) {
             try {
-                Zone collidedWith = (Zone)cp.otherCollider.gameObject;
+                //Zone collidedWith = (Zone)cp.otherCollider.gameObject; Unity will not allow this cast
+                Zone collidedWith = new BasicZone();
                 return z.Equals(collidedWith);
             }
             catch (Exception x) {
@@ -96,19 +99,24 @@ namespace Tableau.Base {
                     // TODO move piece back to its place in the zone
                     // TODO also fire an event like illegal move or something (need listeners) so as
                     //      to deal with what happens when dragging the piece
+                    return true; //temporary, to shut Unity up
                 }
             }
         }
 
+        /*Unity will not run with this cast in place*/
         public bool Equals(GameObject o) {
-            try {
+
+            /*try {
                 return ((Piece)o) == this;
             }
             catch (Exception x) {
                 return false;
-            }
+            }*/
+            return true;
         }
 
+        override
         public void OnDragStart(CursorEvent e) {
             if (draggable) {
                 Vector3 cursorPosition = e.cursorPosition;
@@ -116,21 +124,27 @@ namespace Tableau.Base {
             }
         }
 
-        public void OnDragExit(CursorEvent e) {
+        override
+        public void OnDragEnd(CursorEvent e) {
             // do nothing (basically just stop moving)
         }
 
         // do nothing on gaze or tap (can be overridden, of course)
+        override
         public void OnGazeEnter(CursorEvent e) {}
 
+        override
         public void OnGazeExit(CursorEvent e) {}
 
+        override
         public void OnTapEnter(CursorEvent e) {}
 
+        override
         public void OnTapExit(CursorEvent e) {}
 
+        override
         public void WarnIfOversized() {
-            Vector3 size = null;
+            Vector3 size = new Vector3(0, 0, 0);
             try {
                 size = GetComponent<Renderer>().bounds.size;
             }
@@ -138,7 +152,7 @@ namespace Tableau.Base {
                 try {
                     size = GetComponent<Collider>().bounds.size;
                 }
-                catch (Exception x) {
+                catch (Exception ex) {
                     // don't do anything...we'll let the programmer figure it out at this point
                 }
             }
@@ -146,10 +160,7 @@ namespace Tableau.Base {
                 // Note: 1 unit corresponds to 1 meter in the real world, here
                 if (size != null && (size.x > 1 || size.y > 1 || size.z > 1)) {
                     Debug.LogWarning(
-                        "This board might be too big (%d, %d, %d)!",
-                        size.x,
-                        size.y,
-                        size.z
+                        "This board might be too big (" + size.x + ", " + size.y + ", " + size.z + ")!"
                     );
                 }
             }
