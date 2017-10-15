@@ -22,16 +22,5 @@ namespace Tableau.Base {
 
         /* Remove the given Piece from this Zone. Return true if successful, otherwise false. */
         public abstract bool Release(Piece p);
-
-        /* Return true if the given object is equivalent to this Zone, otherwise false. */
-        public abstract bool Equals(GameObject o);
-
-        public abstract void OnGazeEnter(CursorEvent e);
-        public abstract void OnGazeExit(CursorEvent e);
-        public abstract void OnTapEnter(CursorEvent e);
-        public abstract void OnTapExit(CursorEvent e);
-        public abstract void OnDragStart(CursorEvent e);
-        public abstract void OnDragEnd(CursorEvent e);
-        public abstract void WarnIfOversized();
     }
 }

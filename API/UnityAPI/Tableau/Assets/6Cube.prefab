@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4573505192995440}
   m_Layer: 0
-  m_Name: 6-Cube
+  m_Name: 6Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

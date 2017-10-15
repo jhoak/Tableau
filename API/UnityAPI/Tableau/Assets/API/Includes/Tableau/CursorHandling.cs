@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tableau.Base {
 
@@ -16,25 +17,25 @@ namespace Tableau.Base {
 
 	public interface Gazeable {
 
-		public void OnGazeEnter(CursorEvent e);
+		void OnGazeEnter(CursorEvent e);
 
-		public void OnGazeExit(CursorEvent e);
+		void OnGazeExit(CursorEvent e);
 
 	}
 
 	public interface Tappable {
 
-		public void OnTapEnter(CursorEvent e);
+	    void OnTapEnter(CursorEvent e);
 
-		public void OnTapExit(CursorEvent e);
+		void OnTapExit(CursorEvent e);
 
 	}
 
 	public interface Draggable : Tappable {
 
-		public void OnDragStart(CursorEvent e);
+		void OnDragStart(CursorEvent e);
 
-		public void OnDragEnd(CursorEvent e);
+		void OnDragEnd(CursorEvent e);
 
 	}
 }
