@@ -31,5 +31,7 @@ namespace Tableau.Base {
          * (((Please don't fudge the numbers for this.)))
          */
         public abstract void WarnIfOversized();
+
+        public abstract bool Equals(GameObject o);
     }
 }

@@ -25,17 +25,17 @@ namespace Tableau.Base {
 
 	public interface Tappable {
 
-		void OnTapEnter(CursorEvent e);
+	    void OnTapEnter(CursorEvent e);
 
 		void OnTapExit(CursorEvent e);
 
 	}
 
 	public interface Draggable : Tappable {
-
+		
 		void OnDragStart(CursorEvent e);
 
 		void OnDragEnd(CursorEvent e);
 
 	}
-}
+
