@@ -12,7 +12,7 @@ namespace Tableau.Base {
      * these Pieces.
      */
     public abstract class Zone : TableauObject {
-
+        override
         public void Start() {
             base.Start();
         }

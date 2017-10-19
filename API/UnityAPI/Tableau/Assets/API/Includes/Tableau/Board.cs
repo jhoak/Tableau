@@ -34,32 +34,37 @@ namespace Tableau.Base {
             return copy;
         }
 
+        override
+        public void OnDragStart(CursorEvent e) {
             if (draggable) {
                 Vector3 cursorPosition = e.cursorPosition;
                 gameObject.transform.position = cursorPosition;
             }
         }
 
-        public override void OnDragEnd(CursorEvent e) {
+        override
+        public void OnDragEnd(CursorEvent e) {
             // do nothing (basically just stop moving)
         }
 
         // do nothing on gaze or tap (can be overridden, of course)
-        public override void OnGazeEnter(CursorEvent e) {}
+        override
+        public void OnGazeEnter(CursorEvent e) {}
+        
+        override
+        public void OnGazeExit(CursorEvent e) {}
 
-        public override void OnGazeExit(CursorEvent e) {}
+        override
+        public void OnTapEnter(CursorEvent e) {}
 
-        public override void OnTapEnter(CursorEvent e) {}
+        override
+        public void OnTapExit(CursorEvent e) {}
 
-        public override void OnTapExit(CursorEvent e) {}
+        override
+        public void WarnIfOversized() {
 
-        public override void WarnIfOversized() {
-            Vector3 size = new Vector3(-1, -1, -1);
-            try {
-                size = GetComponent<Renderer>().bounds.size;
-            }
-            catch (Exception x) {
-                try {
+            Vector3 size = new Vector3(0, 0, 0);
+
             try {
                 size = GetComponent<Renderer>().bounds.size;
             }
@@ -67,10 +72,7 @@ namespace Tableau.Base {
                 try {
                     size = GetComponent<Collider>().bounds.size;
                 }
-                catch (Exception y) {
-                    // don't do anything...we'll let the programmer figure it out at this point
-                }
-            }
+                catch (Exception ex) {
                     // don't do anything...we'll let the programmer figure it out at this point
                 }
             }
