@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Tableau.Util;
 
 namespace Tableau.Base {
 
@@ -13,17 +12,14 @@ namespace Tableau.Base {
 
         protected Zone[] zones;
         public bool draggable = false;
-        private int id;
 
         /*
          * When the game scene loads, stores all attached Zones for convenience. (By 'attached' I
          * mean the zones that you drag and drop onto the Board object in the hierarchy.)
          */
-         override
         public void Start() {
             base.Start();
             zones = GetComponents<Zone>();
-            id = IDManager.getNewBoardID();
         }
 
         public Zone[] GetZones() {
@@ -34,37 +30,38 @@ namespace Tableau.Base {
             return copy;
         }
 
-        override
-        public void OnDragStart(CursorEvent e) {
+        public override bool Equals(GameObject o) {
+            try {
+                Board b = o.GetComponent<Board>();
+                return b == this;
+            }
+            catch (Exception x) {
+                return false;
+            }
+        }
+
+        public override void OnDragStart(CursorEvent e) {
             if (draggable) {
                 Vector3 cursorPosition = e.cursorPosition;
                 gameObject.transform.position = cursorPosition;
             }
         }
 
-        override
-        public void OnDragEnd(CursorEvent e) {
+        public override void OnDragEnd(CursorEvent e) {
             // do nothing (basically just stop moving)
         }
 
         // do nothing on gaze or tap (can be overridden, of course)
-        override
-        public void OnGazeEnter(CursorEvent e) {}
-        
-        override
-        public void OnGazeExit(CursorEvent e) {}
+        public override void OnGazeEnter(CursorEvent e) {}
 
-        override
-        public void OnTapEnter(CursorEvent e) {}
+        public override void OnGazeExit(CursorEvent e) {}
 
-        override
-        public void OnTapExit(CursorEvent e) {}
+        public override void OnTapEnter(CursorEvent e) {}
 
-        override
-        public void WarnIfOversized() {
+        public override void OnTapExit(CursorEvent e) {}
 
-            Vector3 size = new Vector3(0, 0, 0);
-
+        public override void WarnIfOversized() {
+            Vector3 size = new Vector3(-1, -1, -1);
             try {
                 size = GetComponent<Renderer>().bounds.size;
             }
@@ -72,22 +69,21 @@ namespace Tableau.Base {
                 try {
                     size = GetComponent<Collider>().bounds.size;
                 }
-                catch (Exception ex) {
+                catch (Exception y) {
                     // don't do anything...we'll let the programmer figure it out at this point
                 }
             }
             finally {
                 // Note: 1 unit corresponds to 1 meter in the real world, here
-                if (size != null && (size.x > 1 || size.y > 1 || size.z > 1)) {
-                    Debug.LogWarning(
-                        "This board might be too big (" + size.x + ", " + size.y + ", " + size.z + ")!"
-                    );
+                if (size != new Vector3(-1, -1, -1) && (size.x > 1 || size.y > 1 || size.z > 1)) {
+                    Debug.LogWarning(string.Format(
+                        "This board might be too big (%d, %d, %d)!",
+                        size.x,
+                        size.y,
+                        size.z
+                    ));
                 }
             }
-        }
-
-        override public int getID() {
-            return id;
         }
     }
 }

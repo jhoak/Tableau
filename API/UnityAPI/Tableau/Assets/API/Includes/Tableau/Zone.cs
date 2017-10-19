@@ -12,7 +12,7 @@ namespace Tableau.Base {
      * these Pieces.
      */
     public abstract class Zone : TableauObject {
-        override
+
         public void Start() {
             base.Start();
         }
@@ -22,17 +22,5 @@ namespace Tableau.Base {
 
         /* Remove the given Piece from this Zone. Return true if successful, otherwise false. */
         public abstract bool Release(Piece p);
-
-        /* Return true if the given object is equivalent to this Zone, otherwise false. */
-        public abstract bool Equals(GameObject o);
-
-        public override abstract void OnGazeEnter(CursorEvent e);
-        public override abstract void OnGazeExit(CursorEvent e);
-        public override abstract void OnTapEnter(CursorEvent e);
-        public override abstract void OnTapExit(CursorEvent e);
-        public override abstract void OnDragStart(CursorEvent e);
-        public override abstract void OnDragEnd(CursorEvent e);
-        public override abstract void WarnIfOversized();
-        public override abstract int getID();
     }
 }

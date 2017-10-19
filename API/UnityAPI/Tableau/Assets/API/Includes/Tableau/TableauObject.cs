@@ -13,12 +13,11 @@ namespace Tableau.Base {
         public abstract void OnTapExit(CursorEvent e);
         public abstract void OnDragStart(CursorEvent e);
         public abstract void OnDragEnd(CursorEvent e);
-        public abstract int getID();
 
         /*
          * The start shared by all TableauObjects in general. Should be called by subclasses 1st.
          */
-        public virtual void Start() {
+        public void Start() {
             WarnIfOversized();
         }
 
@@ -31,5 +30,7 @@ namespace Tableau.Base {
          * (((Please don't fudge the numbers for this.)))
          */
         public abstract void WarnIfOversized();
+
+        public abstract bool Equals(GameObject o);
     }
 }

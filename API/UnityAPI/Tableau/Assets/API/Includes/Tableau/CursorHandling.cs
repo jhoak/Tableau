@@ -25,7 +25,7 @@ namespace Tableau.Base {
 
 	public interface Tappable {
 
-		void OnTapEnter(CursorEvent e);
+	    void OnTapEnter(CursorEvent e);
 
 		void OnTapExit(CursorEvent e);
 

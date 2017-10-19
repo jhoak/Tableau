@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Tableau.Util;
 
 namespace Tableau.Base {
 
@@ -13,12 +12,9 @@ namespace Tableau.Base {
 
         private Zone occupiedZone; // the Zone that this Piece is in
         public bool draggable = false;
-        private int id;
 
-        override
         public void Start() {
             base.Start();
-            id = IDManager.getNewPieceID();
         }
 
         /*
@@ -40,8 +36,7 @@ namespace Tableau.Base {
                 // 2) we hit something! is it a zone?
                 GameObject rayCollidedWith = hitInfo.collider.gameObject;
                 try {
-                    ///Zone rayCollidedZone = (Zone)rayCollidedWith;    This type of casting will not work with Unity.
-                    Zone rayCollidedZone = new BasicZone();
+                    Zone rayCollidedZone = rayCollidedWith.GetComponent<Zone>();
                     // 3) Now see if the Collision object also has this zone.
                     foreach (ContactPoint cp in c.contacts) {
                         if (CollidedWithZone(rayCollidedZone, cp)) {
@@ -72,7 +67,9 @@ namespace Tableau.Base {
          */
         private bool CollidedWithZone(Zone z, ContactPoint cp) {
             try {
-                return z.Equals(cp.otherCollider.gameObject);
+                GameObject collidedWith = cp.otherCollider.gameObject;
+                Zone z2 = collidedWith.GetComponent<Zone>();
+                return z.Equals(z2);
             }
             catch (Exception x) {
                 return false;
@@ -100,50 +97,43 @@ namespace Tableau.Base {
                     // TODO move piece back to its place in the zone
                     // TODO also fire an event like illegal move or something (need listeners) so as
                     //      to deal with what happens when dragging the piece
-                    return true; //temporary, to shut Unity up
+                    return false;
                 }
             }
         }
 
-        
-        public bool Equals(GameObject o) {
-            Piece otherPiece = o.GetComponent<Piece>();
-            if (otherPiece.getID() == this.id){
-                return true;
-            }else{
+        public override bool Equals(GameObject o) {
+            try {
+                Piece p = o.GetComponent<Piece>();
+                return p == this;
+            }
+            catch (Exception x) {
                 return false;
-            }                
+            }
         }
 
-        override
-        public void OnDragStart(CursorEvent e) {
+        public override void OnDragStart(CursorEvent e) {
             if (draggable) {
                 Vector3 cursorPosition = e.cursorPosition;
                 gameObject.transform.position = cursorPosition;
             }
         }
 
-        override
-        public void OnDragEnd(CursorEvent e) {
+        public override void OnDragEnd(CursorEvent e) {
             // do nothing (basically just stop moving)
         }
 
         // do nothing on gaze or tap (can be overridden, of course)
-        override
-        public void OnGazeEnter(CursorEvent e) {}
+        public override void OnGazeEnter(CursorEvent e) {}
 
-        override
-        public void OnGazeExit(CursorEvent e) {}
+        public override void OnGazeExit(CursorEvent e) {}
 
-        override
-        public void OnTapEnter(CursorEvent e) {}
+        public override void OnTapEnter(CursorEvent e) {}
 
-        override
-        public void OnTapExit(CursorEvent e) {}
+        public override void OnTapExit(CursorEvent e) {}
 
-        override
-        public void WarnIfOversized() {
-            Vector3 size = new Vector3(0, 0, 0);
+        public override void WarnIfOversized() {
+            Vector3 size = new Vector3(-1, -1, -1);
             try {
                 size = GetComponent<Renderer>().bounds.size;
             }
@@ -151,22 +141,21 @@ namespace Tableau.Base {
                 try {
                     size = GetComponent<Collider>().bounds.size;
                 }
-                catch (Exception ex) {
+                catch (Exception y) {
                     // don't do anything...we'll let the programmer figure it out at this point
                 }
             }
             finally {
                 // Note: 1 unit corresponds to 1 meter in the real world, here
-                if (size != null && (size.x > 1 || size.y > 1 || size.z > 1)) {
-                    Debug.LogWarning(
-                        "This board might be too big (" + size.x + ", " + size.y + ", " + size.z + ")!"
-                    );
+                if (size != new Vector3(-1,-1,-1) && (size.x > 1 || size.y > 1 || size.z > 1)) {
+                    Debug.LogWarning(string.Format(
+                        "This piece might be too big (%d, %d, %d)!",
+                        size.x,
+                        size.y,
+                        size.z
+                    ));
                 }
             }
-        }
-
-        override public int getID(){
-            return id;
         }
     }
 }
