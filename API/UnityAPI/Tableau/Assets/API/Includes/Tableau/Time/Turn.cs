@@ -6,7 +6,7 @@ namespace Tableau.Time
 {
 	public class Turn
 	{
-		public string name = "";
+		/*public string name = "";
 		public int ID = 0;
 		public Character owner;
 		public Queue<Action> events;
@@ -63,6 +63,6 @@ namespace Tableau.Time
 			if (current+1>=phases.Count) return -1;
 			current++;
 			return 0;
-		}
+		}*/
 	}
 }

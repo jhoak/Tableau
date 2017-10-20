@@ -7,7 +7,7 @@ namespace Tableau.Time
 {
 	public class Phase
 	{
-		public string name;
+		/*public string name;
 		public int ID;
 		public Character owner;
 		public Queue<Action> events;
@@ -42,6 +42,6 @@ namespace Tableau.Time
 			{
 				events.Dequeue().Invoke();
 			}
-		}
+		}*/
 	}
 }
