@@ -1,5 +1,7 @@
 10/20/2017 -- Completed tasks:
 - Finished the ID assignment functionality. All Tableau objects will now be assigned a unique ID on creation. Updated Equals methods to use these IDs which means they will compile with Unity now!
+- Cleaned up the big merge issue, ID class is no longer needed. 
+- Made a Deck class that is initialized using an array of cards, adds functionality such as shuffle, deal, etc.
 
 ----
 10/13/2017 -- Completed tasks:
