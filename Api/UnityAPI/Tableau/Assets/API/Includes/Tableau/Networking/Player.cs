@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 public class Player : NetworkBehaviour {
 
-    public PlayerPanel playerPanel;
-
     public int maxHandSize = 5;
 
+    //Use [SyncVar] to indicate which variables should be synchronized.
     [SyncVar]
     public Card[] handCards;
 
@@ -16,16 +15,10 @@ public class Player : NetworkBehaviour {
 
 
     public override void OnStartClient() {
-
-        playerPanel = CardManager.singleton.playerPanels[playerId];
-        playerPanel.gameObject.SetActive(true);
+        
     }
 
     public override void OnNetworkDestroy() {
-        if (playerPanel != null) {
-            playerPanel.ClearCards();
-            playerPanel.gameObject.SetActive(false);
-        }
     }
 
     public override void OnStartServer() {
@@ -43,7 +36,8 @@ public class Player : NetworkBehaviour {
             RpcAddCard(newCard);
         }
     }
-
+    //RPC = Remote Procedure Call. The way to perform an action across a network.
+    //[ClientRpc] is called on the server, but runs on the client.
     [ClientRpc]
     void RpcAddCard(CardId newCard) {
         if (!isServer) {
@@ -53,13 +47,6 @@ public class Player : NetworkBehaviour {
 
         CalculateScore();
         playerPanel.AddCard(newCard, cardScore);
-    }
-
-
-    public void MsgAddCard(CardId cardId) {
-        handCards.Add(cardId);
-        CalculateScore();
-        playerPanel.AddCard(cardId, cardScore);
     }
 
     [Server]
@@ -108,5 +95,9 @@ public class Player : NetworkBehaviour {
             CardManager.singleton.ClientDisableAllButtons();
         }
     }
+
+    //there is also a [Command] tag which means that the command will be sent from the player
+    //object on the client to the player objects on the server. You must also add the 'Cmd' prefix.
+    //Commands should not be sent every frame, this would cause a lot of network traffic.
 
 }

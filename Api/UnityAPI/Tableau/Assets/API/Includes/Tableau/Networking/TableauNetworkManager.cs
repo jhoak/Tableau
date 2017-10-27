@@ -37,9 +37,4 @@ public class TableauNetworkManager : NetworkManager {
 
         base.OnServerDisconnect(conn);
     }
-
-    public override void OnStartClient(NetworkClient client) {
-        client.RegisterHandler(CardConstants.CardMsgId, OnCardMsg);
-    }
-
 }
