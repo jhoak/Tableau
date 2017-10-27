@@ -69,4 +69,14 @@ public class EventManager : MonoBehaviour {
         }
     }
 
+    //can be set to anything depending on the game.
+    public enum GameTurnState
+	{
+		ShufflingDeck,
+		DealingCards,
+		PlayingPlayerHand,
+        ChangingTurn,
+		Complete
+	};
+
 }

@@ -9,9 +9,15 @@ namespace Tableau.Base {
      */
     public class Card : Piece {
 
+        public bool hidden = true;
+
         public void Start() {
             base.Start();
         }
+
+        public void showCard(bool inp){
+            hidden = inp;
+        }                                       
 
         public override void WarnIfOversized() {
             Vector3 size = new Vector3(-1,-1,-1);
