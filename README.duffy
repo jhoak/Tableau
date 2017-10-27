@@ -1,3 +1,5 @@
+10/26/2017 -- Tasks in Progress:
+- Implementing networking managers which will syncronize game and player states for an arbitrary number of players. 
 10/20/2017 -- Completed tasks:
 - Finished the ID assignment functionality. All Tableau objects will now be assigned a unique ID on creation. Updated Equals methods to use these IDs which means they will compile with Unity now!
 - Cleaned up the big merge issue, ID class is no longer needed. 
