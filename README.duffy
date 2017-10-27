@@ -1,5 +1,10 @@
-10/26/2017 -- Tasks in Progress:
-- Implementing networking managers which will syncronize game and player states for an arbitrary number of players. 
+10/26/2017 -- Completed tasks:
+- Implemented network manager that inherits the UnityEngine.Networking.NetworkManager, can add and remove players from the game. 
+- Created Player class that implements NetworkBehavior. This keeps track of variables that need to be sync'd between client and server. Made it possible for a player to have a hand of cards, even though the game may not be a card game. Can be changed later.
+Tasks in Progress: 
+- Need to work out what the GameNetworkManager class will look like. This class will be in charge of maintaining the state of the game as well as global variables or variables that do not rely on the players.
+
+----
 10/20/2017 -- Completed tasks:
 - Finished the ID assignment functionality. All Tableau objects will now be assigned a unique ID on creation. Updated Equals methods to use these IDs which means they will compile with Unity now!
 - Cleaned up the big merge issue, ID class is no longer needed. 
