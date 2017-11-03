@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using Tableau.Base;
 
 public class Player : NetworkBehaviour {
 
@@ -22,15 +23,15 @@ public class Player : NetworkBehaviour {
     }
 
     public override void OnStartServer() {
-        CardManager.singleton.AddPlayer(this);
+
     }
 
     public override void OnStartLocalPlayer() {
-        CardManager.singleton.localPlayer = this;
+
     }
 
     [Server]
-    public void ServerAddCard(CardId newCard) {
+    public void ServerAddCard(Card newCard) {
         if (handCards.Length + 1 < maxHandSize) {
             handCards.Add(newCard);
             RpcAddCard(newCard);
@@ -39,20 +40,16 @@ public class Player : NetworkBehaviour {
     //RPC = Remote Procedure Call. The way to perform an action across a network.
     //[ClientRpc] is called on the server, but runs on the client.
     [ClientRpc]
-    void RpcAddCard(CardId newCard) {
+    void RpcAddCard(Card newCard) {
         if (!isServer) {
             // this was already done for host player
             handCards.Add(newCard);
         }
-
-        CalculateScore();
-        playerPanel.AddCard(newCard, cardScore);
     }
 
     [Server]
     public void ServerClearCards() {
         handCards.Clear();
-        cardScore = 0;
 
         RpcClearCards();
     }
@@ -63,9 +60,6 @@ public class Player : NetworkBehaviour {
             // this was already done for host player
             handCards.Clear();
         }
-        playerPanel.ClearCards();
-        cardScore = 0;
-        CardManager.singleton.paidAmount.text = "0";
     }
 
     [Client]
@@ -73,10 +67,7 @@ public class Player : NetworkBehaviour {
         var card = handCards[0];
         card.hidden = false;
         handCards[0] = card;
-
-        playerPanel.ShowCard(0);
-        CalculateScore();
-        playerPanel.SetScore(cardScore);
+        
 
     }
 
@@ -86,14 +77,7 @@ public class Player : NetworkBehaviour {
         Color c = new Color(1, 1, 1, 0.5f);
         if (isYourTurn)
             c = Color.green;
-
-        playerPanel.GetComponent<PlayerPanel>().ColorImage(c);
-
-        if (isYourTurn && isLocalPlayer) {
-            CardManager.singleton.EnablePlayHandButtons();
-        } else {
-            CardManager.singleton.ClientDisableAllButtons();
-        }
+        
     }
 
     //there is also a [Command] tag which means that the command will be sent from the player

@@ -23,7 +23,7 @@ public class TableauNetworkManager : NetworkManager {
         conn.Disconnect();
     }
 
-    public override void OnServerRemovePlayer(NerworkConnection conn, PlayerController playerController) {
+    public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController playerController) {
         playerController player = playerController.gameObject.GetComponent<Player>();
         players[player.playerId] = null;
         base.OnserverRemovePlayer(conn, playerController);
