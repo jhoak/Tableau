@@ -1,4 +1,23 @@
 ----
+10/20/2017 -- Completed tasks:
+- Created a new Cube prefab for use in the Unity editor. The default Cube essentially shares the
+same texture (or, "material") on all sides, which is a problem e.g. if you want to make playing
+cards. The new prefab allows for a different material to be used on each side.
+- Created a basic playing card prefab as well as a Card script to go with it and handle clicking
+events. The prefab is roughly as thin as a playing card and the 4 thin sides have a default white
+texture (to represent that these are totally paper-based). A programmer can easily put a different
+image on each of the two other sides to create whatever card they want, like a default "back"
+texture that gets used on all of the cards in a deck, plus a front side that identifies the card
+(e.g. the front side of a "9 of hearts" card). This allows programmers to make cards relatively
+easily in the editor.
+---> Note: This also marks the completion of the "Easy importing of custom objects" goal, since
+other objects (Boards, Pieces, and Zones) have a pretty reasonable workflow. Drag and drop a 3D
+model's file into Unity; this model can be from 3rd-party software like Blender. Then drag and drop
+the relevant script (Board.cs, Piece.cs, Zone.cs, etc.) onto the new object, and you're done. The
+new object will behave according to the script you gave it.
+- Fixed a handful of compilation errors and logical errors in the core API.
+
+----
 10/13/2017 -- Completed tasks:
 - Sizing game objects properly for the HoloLens: Any Board, Zone, or Piece (except for cards) ought
 to be no more than 1x1x1 (that is, 1 meter x 1m x 1m), and a warning will be printed to the log for
