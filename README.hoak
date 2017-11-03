@@ -1,4 +1,20 @@
 ----
+11/03/2017 -- Completed tasks:
+- Spent 4 hours designing and implementing a general game manager and another manager more suited
+for turn-based games, as well as several general event types. This will be finished next week. The
+final product will be suitable for single- and multi-player environments and will include facilities
+to manage "phases" in each turn. Much of the time this week was spent on design and figuring out the
+best workflow for API users to implement their own managers for games with different rulesets and
+triggers. The resulting architecture will largely be event-driven, with a single game manager
+handling lots of these events and doing the necessary bookkeeping in the scene and UI. API users
+will be able to implement their own managers by just subclassing a GameManager template and
+overriding whatever event handlers they'd like to override.
+
+----
+*NOTE: The entry below that describes my progress from 10/20/2017 was overwritten by some prior
+commit, so I added that back this week. The actual progress was made, but I didn't get to copy and
+paste the entry back here until this week.
+----
 10/20/2017 -- Completed tasks:
 - Created a new Cube prefab for use in the Unity editor. The default Cube essentially shares the
 same texture (or, "material") on all sides, which is a problem e.g. if you want to make playing
