@@ -1,3 +1,7 @@
+11/3/2017 -- Completed tasks:
+- Fixed a couple more misc compilation errors.
+- Created classes that will enable easy creation of scene selection and settings menus. This includes the ability to load specific scenes by pressing a button that is associated with a particular index, relating to the scene index that is set in the Unity projects build settings.
+----
 10/26/2017 -- Completed tasks:
 - Implemented network manager that inherits the UnityEngine.Networking.NetworkManager, can add and remove players from the game. 
 - Created Player class that implements NetworkBehavior. This keeps track of variables that need to be sync'd between client and server. Made it possible for a player to have a hand of cards, even though the game may not be a card game. Can be changed later.
