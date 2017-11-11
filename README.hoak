@@ -1,4 +1,13 @@
 ----
+11/10/2017 -- Completed tasks:
+- Created the red and black pieces and the board for the Checkers demo, as well as setup the board
+and its different alternating Zones with a script. The zones have colliders by default so they will
+interact correctly (physically) with the game pieces and the board itself. All that's left is
+implementing the actual rules for the game, which shouldn't take long if the EventManager and other
+core classes are well constructed.
+- Added a basic HoloLens game scene, so people don't have to keep setting up the scene each time.
+
+----
 11/03/2017 -- Completed tasks:
 - Spent 4 hours designing and implementing a general game manager and another manager more suited
 for turn-based games, as well as several general event types. This will be finished next week. The
