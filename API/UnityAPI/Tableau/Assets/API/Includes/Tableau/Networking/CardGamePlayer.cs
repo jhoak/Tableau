@@ -4,16 +4,13 @@ using System.Collections.Generic;
 using Tableau.Base;
 
 namespace Tableau.Base.Net {
-    public class Player : NetworkBehaviour {
+    public class CardGamePlayer : Player {
 
         public int maxHandSize = 5;
 
         //Use [SyncVar] to indicate which variables should be synchronized.
         [SyncVar]
         public Card[] handCards;
-
-        [SyncVar]
-        public int playerId;
 
 
         public override void OnStartClient() {
