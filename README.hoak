@@ -1,4 +1,18 @@
 ----
+11/17/2017 -- Completed tasks:
+- Reworked general events and NetworkManager to work with the EventManager, e.g. by using string-
+named events rather than invoking UnityEvents.
+- Discarded the Flow classes since they were unnecessary (NetworkManager has to take care of this
+stuff, since it has to work over the network).
+- Added a simple turn management mechanism that only allows one player to move at a time, until it
+says it's another player's turn. This will happen after a ChangingTurn event is thrown on the
+server side, possibly by a legal client action (i.e. ending the player's turn). This is easily
+able to be overridden by a subclass of e.g. NetworkManager.
+- Separated Player.cs into a Player.cs and CardGamePlayer.cs, as lots of the former file's own code
+was specific to a card game scenario.
+- Added other classes in the API to the Tableau.Base namespace, or another namespace within it.
+
+----
 11/10/2017 -- Completed tasks:
 - Created the red and black pieces and the board for the Checkers demo, as well as setup the board
 and its different alternating Zones with a script. The zones have colliders by default so they will
