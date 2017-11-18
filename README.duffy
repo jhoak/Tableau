@@ -1,3 +1,7 @@
+11/17/2017 -- Completed tasks:
+- Started working on Solitaire Demo, representing 52 card deck and importing prefabs with models and scripts for each card.
+- Fixed or commented out compilation errors to make Unity happy.
+
 11/3/2017 -- Completed tasks:
 - Fixed a couple more misc compilation errors.
 - Created classes that will enable easy creation of scene selection and settings menus. This includes the ability to load specific scenes by pressing a button that is associated with a particular index, relating to the scene index that is set in the Unity projects build settings.
