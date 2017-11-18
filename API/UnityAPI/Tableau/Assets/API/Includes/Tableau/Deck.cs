@@ -6,9 +6,12 @@ using UnityEngine;
 namespace Tableau.Base {
 
     public class Deck : TableauObject {
-
+        [SerializeField]
         private Card[] deck;
         private bool draggable = false;
+
+        [SerializeField]
+        public int deckSize;
 
         private int cardsUsed;
 
