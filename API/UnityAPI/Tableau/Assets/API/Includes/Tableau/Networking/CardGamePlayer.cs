@@ -6,7 +6,7 @@ using Tableau.Base;
 namespace Tableau.Base.Net {
     
     public class CardGamePlayer : Player {
-        /*
+
         public int maxHandSize = 5;
 
         //Use [SyncVar] to indicate which variables should be synchronized.
@@ -81,7 +81,7 @@ namespace Tableau.Base.Net {
 
         //there is also a [Command] tag which means that the command will be sent from the player
         //object on the client to the player objects on the server. You must also add the 'Cmd' prefix.
-        //Commands should not be sent every frame, this would cause a lot of network traffic.*/
+        //Commands should not be sent every frame, this would cause a lot of network traffic.
 
     }
 }
