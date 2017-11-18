@@ -4,10 +4,25 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Tableau.Base.Net {
-    public class TableauNetworkManager : NetworkManager {
+
+    public class NetworkManager : UnityEngine.Networking.NetworkManager {
 
         const int maxPlayers = 2;
         Player[] players = new Player[3];
+        private int playerIndex = 0;
+
+        [SyncVar]
+        public int turnPlayerId = getStartingPlayerId();
+        // now: don't accept state-changing commands (i.e. moves) from client unless it's their turn
+
+        public virtual int getStartingPlayerId() {
+            return players[0].playerId;
+        }
+
+        public virtual int getNextPlayerId() {
+            playerIndex = (playerIndex + 1) % players.Length;
+            return players[playerIndex].playerId;
+        }
 
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
 

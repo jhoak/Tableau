@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Tableau.Base;
 
 namespace Tableau.Base.Net {
+    
     public class CardGamePlayer : Player {
 
         public int maxHandSize = 5;
