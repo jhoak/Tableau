@@ -1,21 +1,22 @@
 using System;
 using UnityEngine;
+using Tableau.Base.Net;
 
 namespace Tableau.Base.Flow {
 
     public class BasicTurnBasedManager : GameManager {
 
-        public static const BasicTurnBasedManager Instance = new BasicTurnBasedManager();
+       // public const BasicTurnBasedManager Instance = new BasicTurnBasedManager();
         private int playerTurn = -1;
 
-        protected BasicTurnBasedManager() {}
-
+        public BasicTurnBasedManager() {}
+        /*
         void Start() {
-            Base.Start();
+            base.Start();
             Player[] players = (Player[])FindObjectsOfType(typeof(Player));
-            playerTurn = new Random().Next(0, players.length);
+            playerTurn = new System.Random().Next(0, players.Length);
         }
-
+        */
     }
 
 }

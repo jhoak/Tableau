@@ -6,17 +6,19 @@ namespace Tableau.Base.Flow {
 
     public class GameManager : MonoBehaviour {
 
-        public static const GameManager Instance = new GameManager();
+       // public const GameManager Instance = new GameManager();
 
-        protected GameManager() {}
+        public GameManager() {}
 
-        void Start() {
+        public void Start() {
+            /*
             // subscribe to all the general events
             GeneralEvents.LoadStart.AddListener(HandleLoadStart);
             GeneralEvents.LoadEnd.AddListener(HandleLoadEnd);
             GeneralEvents.GameStart.AddListener(HandleGameStart);
             GeneralEvents.GameEnd.AddListener(HandleGameEnd);
             GeneralEvents.GameRestart.AddListener(HandleGameRestart);
+            */
         }
 
         void HandleLoadStart() {
