@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Tableau.Base {
@@ -18,7 +19,7 @@ namespace Tableau.Base {
         public bool draggable = false;
 
         // This executes when the game scene loads.
-        public void Start() {
+        public new void Start() {
             base.Start();
             int initialLen = (maxOccupants != 0) ? maxOccupants : DEFAULT_LEN;
             occupants = new Piece[initialLen];
@@ -210,6 +211,26 @@ namespace Tableau.Base {
                     ));
                 }
             }
+        }
+
+        public override string Serialize() {
+            // Get values to put in format string
+            int id = this.GetInstanceID();
+            Vector3 pos = this.transform.position;
+            Quaternion rot = this.transform.rotation;
+            string occs = "";
+            foreach (Piece p in occupants) {
+                occs += p.GetInstanceID() + ",";
+            }
+            return String.Format(
+                "id={0},drag={1},pos={2},rot={3},numOccs={4},occs={5};",
+                id,
+                draggable,
+                pos.ToString(),
+                rot.ToString(),
+                numOccupants,
+                occs
+            );
         }
     }
 }

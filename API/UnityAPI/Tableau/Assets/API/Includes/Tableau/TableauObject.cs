@@ -32,5 +32,14 @@ namespace Tableau.Base {
         public abstract void WarnIfOversized();
 
         public abstract bool Equals(GameObject o);
+
+        public abstract string Serialize();
+
+        public static TableauObject Deserialize(string serializedObject) {
+            // "Abstract static" methods don't exist, so this seems like the next best thing.
+            // Require subclasses to override this, by throwing an error if they *don't* override it.
+            // To be clear, this is *not* some temporary code intended to be rewritten later.
+            throw new InvalidOperationException("Class does not implement Deserialize(string)!");
+        }
     }
 }
