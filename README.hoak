@@ -1,4 +1,20 @@
 ----
+12/01/2017 -- Completed tasks:
+- Graphical utilities. Added a script to generate an info bubble for a given player that can
+receive and display info (really, attribute-value pairs, e.g. "Player name: James") on separate
+lines. Each player's bubble will automatically point at the other player so they can read it, and
+this is updated to face the other player each frame, in order to make sure both players can read
+each other's info. Each bubble starts at a configurable offset above each player (by default, this
+is roughly 0.5m). Each player will have their own bubble (and "generator"). Also added a status
+panel to display general game information, to be placed at some fixed place in the scene (and must
+be readable by both players). This panel has an associated script that acts like the info bubble,
+but it does not change the bubble's position or rotation based on the movement of either player.
+- Also began working on serializing the core classes (so we can synchronize their info across
+both players' games). This is in place for BasicZone but must be put into the other core classes.
+TableauObject.cs now forces each base class to have serialize() and deserialize() before
+compilation will work.
+
+----
 11/17/2017 -- Completed tasks:
 - Reworked general events and NetworkManager to work with the EventManager, e.g. by using string-
 named events rather than invoking UnityEvents.
