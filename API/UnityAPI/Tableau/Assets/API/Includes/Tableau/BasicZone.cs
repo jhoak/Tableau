@@ -213,7 +213,7 @@ namespace Tableau.Base {
             }
         }
 
-        public override string Serialize() {
+        /*public override string Serialize() {
             // Get values to put in format string
             int id = this.GetInstanceID();
             Vector3 pos = this.transform.position;
@@ -231,6 +231,6 @@ namespace Tableau.Base {
                 numOccupants,
                 occs
             );
-        }
+        }*/
     }
 }

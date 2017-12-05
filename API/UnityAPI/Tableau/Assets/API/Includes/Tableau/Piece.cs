@@ -31,7 +31,7 @@ namespace Tableau.Base {
             RaycastHit hitInfo;
 
             Vector3 rayStart = gameObject.transform.position,
-                    rayVector = new Vector3(0, -10000, 0); // TODO :^)
+                    rayVector = new Vector3(0, -10, 0); // TODO :^)
             if (Physics.Raycast(rayStart, rayVector, out hitInfo)) {
                 // 2) we hit something! is it a zone?
                 GameObject rayCollidedWith = hitInfo.collider.gameObject;
