@@ -5,13 +5,14 @@ using Tableau.Base;
 
 namespace Tableau.Base.Net {
     
-    public class CardGamePlayer : Player {
-
+    public class CardGamePlayer : NetworkBehaviour {
         public int maxHandSize = 5;
 
         //Use [SyncVar] to indicate which variables should be synchronized.
         [SyncVar]
-        public Card[] handCards;
+        public int playerId;
+
+        private SyncListString handCards = new SyncListString();
 
 
         public override void OnStartClient() {
@@ -30,19 +31,19 @@ namespace Tableau.Base.Net {
         }
 
         [Server]
-        public void ServerAddCard(Card newCard) {
-            if (handCards.Length + 1 < maxHandSize) {
-                handCards.Add(newCard);
-                RpcAddCard(newCard);
+        public void ServerAddCard(string serializedCard) {
+            if (handCards.Count + 1 < maxHandSize) {
+                handCards.Add(serializedCard);
+                RpcAddCard(serializedCard);
             }
         }
         //RPC = Remote Procedure Call. The way to perform an action across a network.
         //[ClientRpc] is called on the server, but runs on the client.
         [ClientRpc]
-        void RpcAddCard(Card newCard) {
+        void RpcAddCard(string serializedCard) {
             if (!isServer) {
                 // this was already done for host player
-                handCards.Add(newCard);
+                handCards.Add(serializedCard);
             }
         }
 
@@ -63,11 +64,10 @@ namespace Tableau.Base.Net {
 
         [Client]
         public void ShowCards() {
-            var card = handCards[0];
-            card.hidden = false;
-            handCards[0] = card;
-            
-
+            foreach (string serializedCard in handCards) {
+                Card c = Card.Deserialize(serializedCard);
+                c.hidden = false;
+            }
         }
 
         [ClientRpc]

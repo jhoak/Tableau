@@ -10,5 +10,5 @@ namespace Tableau.Base.Net {
         [SyncVar]
         public int playerId;
 
-	}
+    }
 }

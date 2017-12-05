@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Tableau.Base;
 using Tableau.Base.Event;
+using UnityEngine.SceneManagement;
 
 namespace Tableau.Base.Net {
 
@@ -11,22 +12,16 @@ namespace Tableau.Base.Net {
 
         const int maxPlayers = 2;
         static Player[] players = new Player[3];
-        private int playerIndex = 0;
-
-        //[SyncVar] ******************Can only use SyncVar in NetworkBehaviour classes.
-        //public int turnPlayerId = getStartingPlayerId();
-        // now: don't accept state-changing commands (i.e. moves) from client unless it's their turn
 
         // todo custom attribute for server callback?
         void Start() {
             // subscribe to all the general events
-            EventManager em = EventManager.instance;
-            em.StartListening(GeneralEvents.LoadStart, HandleLoadStart);
-            em.StartListening(GeneralEvents.LoadEnd, HandleLoadEnd);
-            em.StartListening(GeneralEvents.GameStart, HandleGameStart);
-            em.StartListening(GeneralEvents.GameEnd, HandleGameEnd);
-            em.StartListening(GeneralEvents.GameRestart, HandleGameRestart);
-            em.StartListening("ChangingTurn", HandleChangingTurn);
+            EventManager.StartListening(GeneralEvents.LoadStart, HandleLoadStart);
+            EventManager.StartListening(GeneralEvents.LoadEnd, HandleLoadEnd);
+            EventManager.StartListening(GeneralEvents.GameStart, HandleGameStart);
+            EventManager.StartListening(GeneralEvents.GameEnd, HandleGameEnd);
+            EventManager.StartListening(GeneralEvents.GameRestart, HandleGameRestart);
+            EventManager.StartListening("ChangingTurn", HandleChangingTurn);
         }
 
         // todo custom attribute for server callback?
@@ -51,25 +46,15 @@ namespace Tableau.Base.Net {
 
         // todo custom attribute for server callback?
         void HandleGameRestart() {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         // todo does this need a custom attribute?
         void HandleChangingTurn() {
-            turnPlayerId = getNextPlayerId();
-        }
-
-        public static virtual int getStartingPlayerId() {
-            return players[0].playerId;
-        }
-
-        public virtual int getNextPlayerId() {
-            playerIndex = (playerIndex + 1) % players.Length;
-            return players[playerIndex].playerId;
+            // do nothing...
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId) {
-
             for(int i = 1; i < maxPlayers + 1; i++) {
                 if (players[i] == null) {
                     GameObject playerObj = (GameObject)GameObject.Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
@@ -83,14 +68,17 @@ namespace Tableau.Base.Net {
             conn.Disconnect();
         }
 
-        public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController playerController) {
+        public override void OnServerRemovePlayer(
+            NetworkConnection conn,
+            UnityEngine.Networking.PlayerController playerController
+        ) {
             Player player = playerController.gameObject.GetComponent<Player>();
             players[player.playerId] = null;
             base.OnServerRemovePlayer(conn, playerController);
         }
 
         public override void OnServerDisconnect(NetworkConnection conn) {
-            foreach (PlayerController playerController in conn.playerControllers) {
+            foreach (UnityEngine.Networking.PlayerController playerController in conn.playerControllers) {
                 Player player = playerController.gameObject.GetComponent<Player>();
                 players[player.playerId] = null;
             }
