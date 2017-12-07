@@ -1,4 +1,12 @@
 ----
+12/08/2017 -- Completed tasks:
+- Finished serializing the core. This will allow the state of an object from any of the core
+classes to be replicated across a server and clients when games are synchronized over the network.
+- Created a basic HoloLens game scene (i.e. it is configured so the code can be built properly for
+a HoloLens device). This can be used as the starting point for a main menu or game scene, so it
+should be convenient to copy-paste this scene instead of reconfiguring one from scratch.
+
+----
 12/01/2017 -- Completed tasks:
 - Graphical utilities. Added a script to generate an info bubble for a given player that can
 receive and display info (really, attribute-value pairs, e.g. "Player name: James") on separate
