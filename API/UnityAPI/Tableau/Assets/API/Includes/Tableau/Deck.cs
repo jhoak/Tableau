@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 namespace Tableau.Base {
 
@@ -15,9 +16,8 @@ namespace Tableau.Base {
 
         private int cardsUsed;
 
-        // Use this for initialization
-        void Start() {
-            base.Start();
+        public override void Setup() {
+            // no need to do anything
         }
 
         public Deck(Card[] cards) {
@@ -99,6 +99,73 @@ namespace Tableau.Base {
                     ));
                 }
             }
+        }
+
+        public override string Serialize() {
+            int id = this.GetInstanceID();
+            Vector3 pos = this.gameObject.transform.position;
+            string[] posVals = { pos.x + "", pos.y + "", pos.z + "" };
+            Quaternion rot = this.gameObject.transform.rotation;
+            string[] rotVals = { rot.w + "", rot.x + "", rot.y + "", rot.z + "" };
+            string cardIds = "";
+            foreach (Card c in deck) {
+                cardIds += c.GetInstanceID() + ",";
+            }
+            cardIds = cardIds.Substring(0, cardIds.Length - 1);
+            return String.Format(
+                "id={0},drag={1},pos={2},rot={3},cardsUsed={4},cards={5};",
+                id,
+                draggable,
+                String.Join(":", posVals),
+                String.Join(":", rotVals),
+                cardsUsed,
+                cardIds
+            );
+        }
+
+        public static Deck DeserializeDeck(string serializedObject) {
+            Deck[] decks = GameObject.FindObjectsOfType<Deck>();
+            Match m = Regex.Match(
+                serializedObject,
+                "^id=(.*?),drag=(.*?),pos=(.*?),rot=(.*?),cardsUsed=(.*?),cards=(.*?);$"
+            );
+            int id = int.Parse(m.Groups[1].Value);
+            foreach (Deck d in decks) {
+                if (d.GetInstanceID() == id) {
+                    d.draggable = bool.Parse(m.Groups[2].Value);
+                    d.cardsUsed = int.Parse(m.Groups[5].Value);
+
+                    // now break down pos, rot, and cards
+                    string[] posVals = m.Groups[3].Value.Split(':');
+                    d.gameObject.transform.position = new Vector3(
+                        float.Parse(posVals[0]),
+                        float.Parse(posVals[1]),
+                        float.Parse(posVals[2])
+                    );
+                    string[] rotVals = m.Groups[4].Value.Split(':');
+                    d.gameObject.transform.rotation = new Quaternion(
+                        float.Parse(rotVals[0]),
+                        float.Parse(rotVals[1]),
+                        float.Parse(rotVals[2]),
+                        float.Parse(rotVals[3])
+                    );
+                    string[] cardIds = m.Groups[6].Value.Split(',');
+                    d.deck = new Card[cardIds.Length];
+                    int addedCards = 0;
+                    Card[] cardsInScene = GameObject.FindObjectsOfType<Card>();
+                    foreach (string cid in cardIds) {
+                        foreach (Card c in cardsInScene) {
+                            if (int.Parse(cid) == c.GetInstanceID()) {
+                                d.deck[addedCards] = c;
+                                addedCards++;
+                                break;
+                            }
+                        }
+                    }
+                    return d;
+                }
+            }
+            return null;
         }
     }
 }

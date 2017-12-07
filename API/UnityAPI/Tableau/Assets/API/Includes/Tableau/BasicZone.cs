@@ -18,9 +18,8 @@ namespace Tableau.Base {
         private int numOccupants;
         public bool draggable = false;
 
-        // This executes when the game scene loads.
-        public new void Start() {
-            base.Start();
+        public override void Setup() {
+            base.Setup();
             int initialLen = (maxOccupants != 0) ? maxOccupants : DEFAULT_LEN;
             occupants = new Piece[initialLen];
             numOccupants = 0;
@@ -213,24 +212,73 @@ namespace Tableau.Base {
             }
         }
 
-        /*public override string Serialize() {
+        public override string Serialize() {
             // Get values to put in format string
             int id = this.GetInstanceID();
             Vector3 pos = this.transform.position;
+            string[] posVals = { pos.x + "", pos.y + "", pos.z + ""};
+            string posString = String.Join(":", posVals);
             Quaternion rot = this.transform.rotation;
+            string[] rotVals = { rot.w + "", rot.x + "", rot.y + "", rot.z + "" };
+            string rotString = String.Join(":", rotVals);
             string occs = "";
             foreach (Piece p in occupants) {
                 occs += p.GetInstanceID() + ",";
             }
+            occs = occs.Substring(0, occs.Length - 1);
             return String.Format(
-                "id={0},drag={1},pos={2},rot={3},numOccs={4},occs={5};",
+                "id={0},drag={1},pos={2},rot={3},occs={4};",
                 id,
                 draggable,
-                pos.ToString(),
-                rot.ToString(),
-                numOccupants,
+                posString,
+                rotString,
                 occs
             );
-        }*/
+        }
+
+        public static BasicZone DeserializeBasicZone(string serializedObject) {
+            BasicZone[] zones = GameObject.FindObjectsOfType<BasicZone>();
+            Match m = Regex.Match(
+                serializedObject,
+                "^id=(.*?),drag=(.*?),pos=(.*?),rot=(.*?),occs=(.*?);$"
+            );
+            int id = int.Parse(m.Groups[1].Value);
+            foreach (BasicZone B in zones) {
+                if (B.GetInstanceID() == id) {
+                    B.draggable = bool.Parse(m.Groups[2].Value);
+
+                    // now break down pos, rot, and occs
+                    string[] posVals = m.Groups[3].Value.Split(':');
+                    B.gameObject.transform.position = new Vector3(
+                        float.Parse(posVals[0]),
+                        float.Parse(posVals[1]),
+                        float.Parse(posVals[2])
+                    );
+                    string[] rotVals = m.Groups[4].Value.Split(':');
+                    B.gameObject.transform.rotation = new Quaternion(
+                        float.Parse(rotVals[0]),
+                        float.Parse(rotVals[1]),
+                        float.Parse(rotVals[2]),
+                        float.Parse(rotVals[3])
+                    );
+                    string[] occIds = m.Groups[5].Value.Split(',');
+                    B.occupants = new Piece[occIds.Length];
+                    int addedOccs = 0;
+                    Piece[] pieces = GameObject.FindObjectsOfType<Piece>();
+                    foreach (string oid in occIds) {
+                        foreach (Piece p in pieces) {
+                            if (int.Parse(oid) == p.GetInstanceID()) {
+                                B.occupants[addedOccs] = p;
+                                addedOccs++;
+                                break;
+                            }
+                        }
+                    }
+                    B.numOccupants = addedOccs;
+                    return B;
+                }
+            }
+            return null;
+        }
     }
 }

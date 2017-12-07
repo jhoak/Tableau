@@ -6,6 +6,13 @@ namespace Tableau.Base {
 
     public abstract class TableauObject : MonoBehaviour, Gazeable, Draggable {
 
+        public void Start() {
+            Setup();
+            WarnIfOversized();
+        }
+
+        public abstract void Setup();
+
         /* Required interface methods */
         public abstract void OnGazeEnter(CursorEvent e);
         public abstract void OnGazeExit(CursorEvent e);
@@ -13,13 +20,6 @@ namespace Tableau.Base {
         public abstract void OnTapExit(CursorEvent e);
         public abstract void OnDragStart(CursorEvent e);
         public abstract void OnDragEnd(CursorEvent e);
-
-        /*
-         * The start shared by all TableauObjects in general. Should be called by subclasses 1st.
-         */
-        public void Start() {
-            WarnIfOversized();
-        }
 
         /*
          * An object-specific method that gets the object's size and logs a warning if the object is
@@ -33,13 +33,6 @@ namespace Tableau.Base {
 
         public abstract bool Equals(GameObject o);
 
-        /*public abstract string Serialize();
-
-        public static TableauObject Deserialize(string serializedObject) {
-            // "Abstract static" methods don't exist, so this seems like the next best thing.
-            // Require subclasses to override this, by throwing an error if they *don't* override it.
-            // To be clear, this is *not* some temporary code intended to be rewritten later.
-            throw new InvalidOperationException("Class does not implement Deserialize(string)!");
-        }*/
+        public abstract string Serialize();
     }
 }

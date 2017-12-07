@@ -12,8 +12,9 @@ namespace Tableau.Base {
 
         public bool hidden = true;
 
-        public void Start() {
-            base.Start();
+        public override void Setup() {
+            base.Setup();
+            // no need to do anything
         }
 
         public void showCard(bool inp){
@@ -46,23 +47,34 @@ namespace Tableau.Base {
             }
         }
 
-        public string Serialize() {
-            int id = this.GetInstanceID();
-            return String.Format(
-                "id={0},hidden={1};",
-                id,
-                hidden
-            );
+        public override string Serialize() {
+            string serializedSuperclass = base.Serialize();
+            serializedSuperclass = serializedSuperclass.Substring(0, serializedSuperclass.Length - 1);
+            return serializedSuperclass + ",hidden=" + hidden.ToString() + ";";
         }
 
-        public static Card Deserialize(string serializedObject) {
+        public static Card DeserializeCard(string serializedObject) {
             Card[] allCards = GameObject.FindObjectsOfType<Card>();
-            Match m = Regex.Match(serializedObject, "^id=(.*?),hidden=(.*?);$");
+            Match m = Regex.Match(serializedObject, "^id=(.*?),drag=(.*?),zoneId=(.*?),hidden=(.*?);$");
             string id = m.Groups[1].Value,
-                   hidden = m.Groups[2].Value;
+                   draggable = m.Groups[2].Value,
+                   zoneId = m.Groups[3].Value,
+                   hidden = m.Groups[4].Value;
             foreach (Card c in allCards) {
                 if (c.GetInstanceID() == int.Parse(id)) {
+                    c.draggable = bool.Parse(draggable);
                     c.hidden = bool.Parse(hidden);
+                    c.occupiedZone = null;
+                    if (!zoneId.Equals("")) {
+                        // Find zone with given ID
+                        Zone[] zones = GameObject.FindObjectsOfType<Zone>();
+                        foreach (Zone z in zones) {
+                            if (z.GetInstanceID() == int.Parse(zoneId)) {
+                                c.occupiedZone = z;
+                            }
+                        }
+                    }
+
                     return c;
                 }
             }

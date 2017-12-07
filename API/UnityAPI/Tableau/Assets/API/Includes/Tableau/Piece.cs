@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Tableau.Base {
@@ -10,11 +11,11 @@ namespace Tableau.Base {
      */
     public class Piece : TableauObject {
 
-        private Zone occupiedZone; // the Zone that this Piece is in
+        protected Zone occupiedZone; // the Zone that this Piece is in
         public bool draggable = false;
 
-        public void Start() {
-            base.Start();
+        public override void Setup() {
+            // no need to do anything
         }
 
         /*
@@ -156,6 +157,43 @@ namespace Tableau.Base {
                     ));
                 }
             }
+        }
+
+        public override string Serialize() {
+            string id = this.GetInstanceID().ToString(),
+                   zoneId = (occupiedZone != null) ? occupiedZone.GetInstanceID().ToString() : "";
+            return String.Format(
+                "id={0},drag={1},zoneId={2};",
+                id,
+                draggable,
+                zoneId
+            );
+        }
+
+        public static Piece DeserializePiece(string serializedObject) {
+            Piece[] allPieces = GameObject.FindObjectsOfType<Piece>();
+            Match m = Regex.Match(serializedObject, "^id=(.*?),drag=(.*?),zoneId=(.*?);$");
+            string id = m.Groups[1].Value,
+                   draggable = m.Groups[2].Value,
+                   zoneId = m.Groups[3].Value;
+            foreach (Piece p in allPieces) {
+                if (p.GetInstanceID() == int.Parse(id)) {
+                    p.draggable = bool.Parse(draggable);
+                    p.occupiedZone = null;
+                    if (!zoneId.Equals("")) {
+                        // Find zone with given ID
+                        Zone[] zones = GameObject.FindObjectsOfType<Zone>();
+                        foreach (Zone z in zones) {
+                            if (z.GetInstanceID() == int.Parse(zoneId)) {
+                                p.occupiedZone = z;
+                            }
+                        }
+                    }
+
+                    return p;
+                }
+            }
+            return null;
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Tableau.Base.Net {
         [Client]
         public void ShowCards() {
             foreach (string serializedCard in handCards) {
-                Card c = Card.Deserialize(serializedCard);
+                Card c = Card.DeserializeCard(serializedCard);
                 c.hidden = false;
             }
         }

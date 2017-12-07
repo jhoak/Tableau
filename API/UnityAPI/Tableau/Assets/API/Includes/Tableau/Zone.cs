@@ -13,8 +13,8 @@ namespace Tableau.Base {
      */
     public abstract class Zone : TableauObject {
 
-        public void Start() {
-            base.Start();
+        public override void Setup() {
+            // no need to do anything
         }
 
         /* Add a Piece to this Zone, and return true if successful. Otherwise, return false. */
