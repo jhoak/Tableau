@@ -7,17 +7,34 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/Test.unity
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/API/UI/UI.unity
+    guid: 0cc0b029b65c50e4fa3ac709e88168b1
   - enabled: 0
     path: Assets/API/Test/Test.unity
+    guid: b039f757a61911342bf6a5fc7331aced
   - enabled: 0
     path: Assets/API/Game/Game.unity
+    guid: 63672e70effd8284488701b745b7dc1b
   - enabled: 0
     path: Assets/API/RPS/RPSGUI/RPSGUI.unity
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/API/RPS/RPSGame/RPSGame.unity
-  - enabled: 1
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/API/Othello/OthelloGUI/OthelloGUI.unity
-  - enabled: 1
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/API/Othello/OthelloGame/OthelloGame.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/New Scene2.unity
+    guid: 478d940b5fe96a74d85febdcbb8b7497
+  - enabled: 0
+    path: Assets/Checkers/Game.unity
+    guid: b36cf96f685ec6c43af31ef4719dda4f
+  - enabled: 1
+    path: Assets/PLS.unity
+    guid: 35df79d19c407684b8efabf1e5195200
