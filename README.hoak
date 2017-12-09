@@ -5,6 +5,17 @@ classes to be replicated across a server and clients when games are synchronized
 - Created a basic HoloLens game scene (i.e. it is configured so the code can be built properly for
 a HoloLens device). This can be used as the starting point for a main menu or game scene, so it
 should be convenient to copy-paste this scene instead of reconfiguring one from scratch.
+- Created a new GameManager for each of 3 scenarios: single player (not vs. an AI), single player
+vs. an AI, and 2-player mode. These are designed to be overridden so users can add whatever game
+logic they'd like, and utilize the built-in event systems however they like. Each manager (except
+for the 1st of the three) has turn management built in; this pretty much boils down to enabling
+inputs if it's your turn, and disabling input otherwise (except you can still at least move and
+turn your head in the game world to see what's happening). The single-player non-AI manager is
+simple since there's not much we can infer about the game logic (it varies heavily from game to
+game) so users can just override it and write it however they want. By default it just subscribes
+to a couple key events, Win and Loss, designating the end of the game. The other two managers do
+this too, although there are other events (Draw, plus the start of the player's turn and the
+start of the enemy's turn).
 
 ----
 12/01/2017 -- Completed tasks:
