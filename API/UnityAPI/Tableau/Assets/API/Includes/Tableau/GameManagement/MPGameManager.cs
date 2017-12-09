@@ -8,11 +8,11 @@ namespace Tableau.Base.Management {
     // For use in 2-player multiplayer games.
     public class MPGameManager : NetworkBehaviour {
 
-        [SyncVar] public int turnPlayerId = -1; // 0 or 1; 0 is host, 1 is client
+        [SyncVar] private int turnPlayerId = -1; // 0 or 1; 0 is host, 1 is client
         private int changedToId = -2; // gets set on update after turn change
-        public InteractionInputSource gestureSource;
-        public ButtonController mouseButtonController;
-        public ButtonController.ButtonType bcType;
+        private InteractionInputSource gestureSource;
+        private ButtonController mouseButtonController;
+        private ButtonController.ButtonType bcType;
 
         // Use this for initialization
         void Start() {

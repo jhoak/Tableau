@@ -7,15 +7,18 @@ namespace Checkers {
 
 	public class Checkerboard : Board {
 
-		void Start() {
-			base.Start();
-			// Auto-generate zones
+		public override void Setup() {
+			base.Setup();
+            // Auto-generate zones
+            zones = new BasicZone[64];
 			Vector3 pos = this.gameObject.transform.position;
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
 					GameObject zoneCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-					//this.zones[i][j] = zoneCube.AddComponent(typeof(BasicZone)); zone is one-dimensional
-					zoneCube.transform.position = new Vector3(pos.x + i, pos.y, pos.z + j);
+                    BasicZone zone = zoneCube.AddComponent<BasicZone>();
+                    zoneCube.transform.parent = this.gameObject.transform;
+                    this.zones[8 * i + j] = zone;
+					zoneCube.transform.localPosition = new Vector3(i, 0, j);
 				}
 			}
 
