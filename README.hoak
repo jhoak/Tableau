@@ -15,7 +15,23 @@ simple since there's not much we can infer about the game logic (it varies heavi
 game) so users can just override it and write it however they want. By default it just subscribes
 to a couple key events, Win and Loss, designating the end of the game. The other two managers do
 this too, although there are other events (Draw, plus the start of the player's turn and the
-start of the enemy's turn).
+start of the enemy's turn). The first manager skips turn management since it's just designed for
+one player, anyway.
+  With each manager, a user can just create an empty GameObject and add the Manager script to it.
+(They should probably override the Manager first so they can add their game-specific logic.)
+It's as simple as that; they can just go back to working on the rest of the game scene (objects,
+other scripts here and there, sounds, etc).
+- Finished implementing a checkers demo. This included creating more models to use in game
+("crowns" to king a player's piece, and an extra area for crowns and taken pieces) as well as
+modifying the components that deal with dragging and moving/rotating pieces so that it would
+make more sense to players. Also, this demo will serve as the networked multiplayer example, so
+networking components were added all around.
+- Added the HoloToolkit package (github.com/Microsoft/MixedRealityToolkit-Unity) that provides
+quite a few convenience utilities, including automatically providing mouse support to test games
+in the editor (Unity doesn't do this by default; it only recognizes HoloLens gestures, which you
+can't give anyway because you're in the editor on a PC...) as well as an easy way to disable all
+mouse / gesture input at once since it replaces Unity's default InputManager. This made it much
+easier to do turn management, albeit in a hacky way.
 
 ----
 12/01/2017 -- Completed tasks:
