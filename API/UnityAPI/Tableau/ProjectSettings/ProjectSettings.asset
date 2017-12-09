@@ -240,36 +240,44 @@ PlayerSettings:
       m_Icon: {fileID: 0}
       m_Width: 128
       m_Height: 128
+      m_Kind: 0
   - m_BuildTarget: Standalone
     m_Icons:
     - serializedVersion: 2
       m_Icon: {fileID: 0}
       m_Width: 1024
       m_Height: 1024
+      m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 0}
       m_Width: 512
       m_Height: 512
+      m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 0}
       m_Width: 256
       m_Height: 256
+      m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 0}
       m_Width: 128
       m_Height: 128
+      m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 0}
       m_Width: 48
       m_Height: 48
+      m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 0}
       m_Width: 32
       m_Height: 32
+      m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 0}
       m_Width: 16
       m_Height: 16
+      m_Kind: 0
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   m_BuildTargetVRSettings:
@@ -640,7 +648,8 @@ PlayerSettings:
       CodeGeneration: False
       EnterpriseAuthentication: False
       HumanInterfaceDevice: True
-      InternetClient: False
+      InputInjectionBrokered: False
+      InternetClient: True
       InternetClientServer: False
       Location: False
       Microphone: True
@@ -725,9 +734,9 @@ PlayerSettings:
     Unity_Ads: 0
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: b9c0b5a4-8c58-408f-8451-fdc85d4e839b
-  projectName: Tableau
-  organizationId: jhoak
+  cloudProjectId: 95413566-4268-4c91-b38a-738e9cbd122c
+  projectName: Tableau (1)
+  organizationId: jcduffy5
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

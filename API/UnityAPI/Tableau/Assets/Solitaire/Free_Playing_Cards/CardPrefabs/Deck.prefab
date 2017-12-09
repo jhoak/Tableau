@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1397617286809444}
+  m_IsPrefabParent: 1
+--- !u!1 &1397617286809444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4594147064043494}
+  - component: {fileID: 114920197759624504}
+  - component: {fileID: 23729869014503060}
+  - component: {fileID: 33454634704137570}
+  m_Layer: 0
+  m_Name: Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4594147064043494
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397617286809444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23729869014503060
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397617286809444}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 6220227d41f5bca49b5b60e34e845b9e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33454634704137570
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397617286809444}
+  m_Mesh: {fileID: 4300000, guid: bc1d1a549b7abd745ae0856f1eb478c8, type: 3}
+--- !u!114 &114920197759624504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397617286809444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f459665b72f32f42897de9f6cc3b9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck:
+  - {fileID: 114577015718674710, guid: 4098c7e7433ea304381d37aae524c3d4, type: 2}
+  - {fileID: 114552235041691298, guid: 9d45b412ed472a54cbdfcd4c7ae818e3, type: 2}
+  - {fileID: 114316323885992338, guid: 038eaee5ced499c41a402e7aed5de508, type: 2}
+  - {fileID: 114003604667050102, guid: 5e806f9d72989b140b6fe981e75828a2, type: 2}
+  - {fileID: 114613652695443412, guid: d419d3ef0a1e3af42bb0f2ec9020cbed, type: 2}
+  - {fileID: 114924935907266586, guid: 6e6f076a90c503a43981352b7ef11766, type: 2}
+  - {fileID: 114575896665954890, guid: b211050f3d6fc544a9bc5c6dce17547a, type: 2}
+  - {fileID: 114126256784111244, guid: 58da2b9c8f4d1aa409be12a634ad47d4, type: 2}
+  - {fileID: 114851317247446342, guid: b107a9cb154870c419e3810c84b04056, type: 2}
+  - {fileID: 114875926327056830, guid: db673287ad32da64a94605f0332c6401, type: 2}
+  - {fileID: 114167378286340970, guid: fca8493b47dd5be4eb0d45260f465007, type: 2}
+  - {fileID: 114732870029067512, guid: 45aa4ade086951648ab8b359a4f05369, type: 2}
+  - {fileID: 114575728848376034, guid: ce8de00c4f9ba7d41af3ccc5df37c014, type: 2}
+  - {fileID: 114495903969555668, guid: efff140f79652104faeb283dccef31c6, type: 2}
+  - {fileID: 114782316346070558, guid: 7a427d9ce49aa2c40867bbe3ce184660, type: 2}
+  - {fileID: 114129584759013004, guid: 502b19a22a7d03c4c9099bab0f19081b, type: 2}
+  - {fileID: 114411826198148120, guid: e17293090e6f32b4086b3cf3e1ca453b, type: 2}
+  - {fileID: 114308026503679314, guid: 0cbcd042e69a686488142c5992f2efa6, type: 2}
+  - {fileID: 114933098790156630, guid: a4e16e608ddf19a4a9ee2cd1da32d509, type: 2}
+  - {fileID: 114572926015914598, guid: e4944f51a67e89748a0f58031cbff012, type: 2}
+  - {fileID: 114483877062470882, guid: 2e162f279c4374e47afe59ed13e18caa, type: 2}
+  - {fileID: 114860006030019758, guid: 973fedf0b1d86004fbeef0e237bae3f5, type: 2}
+  - {fileID: 114028720129688390, guid: 757d2b46661202b4db253ea311d48b95, type: 2}
+  - {fileID: 114038288751426358, guid: d16cbc0b65447e94eac1bea7819df492, type: 2}
+  - {fileID: 114415755860009160, guid: 26d57b9d31492304ebd7848675af59d7, type: 2}
+  - {fileID: 114970476100285916, guid: ab2b4cf3a43dbab4b989863305d42400, type: 2}
+  - {fileID: 114913584690374616, guid: 68f6fa70eb380a645af54a48c375efa9, type: 2}
+  - {fileID: 114564553019556502, guid: d24219dc9fdd62744a4f92b3ef332c70, type: 2}
+  - {fileID: 114443353095700754, guid: 132340f34d276ea4eb81487ee85ecd3c, type: 2}
+  - {fileID: 114511853865207878, guid: 41c784aa8cf40294ab1d08ae500942b2, type: 2}
+  - {fileID: 114265655511282644, guid: 3971bef60253bb84da848bbb140435ee, type: 2}
+  - {fileID: 114505461749494554, guid: 0ad3740c715208f488708e496d9a88ec, type: 2}
+  - {fileID: 114393495638896106, guid: 800c904986fdeb24e923b349eadf20ad, type: 2}
+  - {fileID: 114424653994466642, guid: 31e2ace393d5249438f435e47cabb5c9, type: 2}
+  - {fileID: 114499219503222986, guid: 2eb747c13c6bf2849b97dfd0dbff8d4c, type: 2}
+  - {fileID: 114095832390200544, guid: 4bf53783b85e4d0428fcfb3a71748811, type: 2}
+  - {fileID: 114395254277131658, guid: c4f07f0c6c9791f47a1fa72371b2c40c, type: 2}
+  - {fileID: 114974853817159014, guid: f98edb15812ce214da6289e98838cfbc, type: 2}
+  - {fileID: 114502746548877326, guid: d85d8d201f430464c81cfab948b8e551, type: 2}
+  - {fileID: 114894849029878698, guid: 03fba65060df9a848bf66e3570f77863, type: 2}
+  - {fileID: 114264946558459250, guid: ae65aa5e8500e3c49bc6659afd25fe95, type: 2}
+  - {fileID: 114708293163106478, guid: 16c399090ed06eb4fb68651dcf7daed1, type: 2}
+  - {fileID: 114548711453260436, guid: 1b6f4781f2c86084a8dd9562ee52e236, type: 2}
+  - {fileID: 114242797289221990, guid: 8c1e5d52515278540bfd054417523f6f, type: 2}
+  - {fileID: 114124932407430098, guid: fe825b7f0b427ed458d7686c0a751a96, type: 2}
+  - {fileID: 114924821115690218, guid: 5c36c761584a1d4418af97a5ef852a1c, type: 2}
+  - {fileID: 114982921139455528, guid: 70a78ab5ac6739b4db8061bcbfb83f67, type: 2}
+  - {fileID: 114531729061092834, guid: ba5a607909154f74797a34fbde702548, type: 2}
+  - {fileID: 114065984884222708, guid: b0348715f8987c04e9b6edb8abaca45c, type: 2}
+  - {fileID: 114556274540506394, guid: ff41cb73ff4d6bf4fae069f949b40a73, type: 2}
+  - {fileID: 114266222600853868, guid: 62c48c48d1bf14e4b81248348ef0daf8, type: 2}
+  - {fileID: 114691803353750426, guid: 33d2a4e750b826d40a820202c5009e38, type: 2}
+  deckSize: 0

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33093679855678438}
   - component: {fileID: 23269875680253910}
   m_Layer: 0
-  m_Name: Board
+  m_Name: Checkerboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

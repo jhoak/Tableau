@@ -30,11 +30,17 @@ EditorBuildSettings:
     path: Assets/API/Othello/OthelloGame/OthelloGame.unity
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/New Scene2.unity
+    path: 
     guid: 478d940b5fe96a74d85febdcbb8b7497
   - enabled: 0
-    path: Assets/Checkers/Game.unity
+    path: 
     guid: b36cf96f685ec6c43af31ef4719dda4f
-  - enabled: 1
-    path: Assets/PLS.unity
+  - enabled: 0
+    path: 
     guid: 35df79d19c407684b8efabf1e5195200
+  - enabled: 0
+    path: Assets/MultiplayerTest/MultiplayerTest.unity
+    guid: 94fcc296a5268dc43a7f5ddf986b4334
+  - enabled: 1
+    path: Assets/Solitaire/SolitaireDemo.unity
+    guid: 4f84ae9d51d7d174a822f71ee662eb0f
