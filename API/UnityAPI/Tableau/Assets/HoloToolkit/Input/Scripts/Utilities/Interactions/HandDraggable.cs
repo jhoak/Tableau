@@ -98,6 +98,7 @@ namespace HoloToolkit.Unity.InputModule
         /// </summary>
         public void StartDragging(Vector3 initialDraggingPosition)
         {
+            this.GetComponentInParent<Rigidbody>().useGravity = false;
             if (!IsDraggingEnabled)
             {
                 return;
@@ -233,6 +234,7 @@ namespace HoloToolkit.Unity.InputModule
         /// </summary>
         public void StopDragging()
         {
+            this.GetComponentInParent<Rigidbody>().useGravity = true;
             if (!isDragging)
             {
                 return;
