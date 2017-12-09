@@ -95,9 +95,6 @@ namespace Tableau.Base {
                     return true;
                 }
                 else {
-                    // TODO move piece back to its place in the zone
-                    // TODO also fire an event like illegal move or something (need listeners) so as
-                    //      to deal with what happens when dragging the piece
                     return false;
                 }
             }
