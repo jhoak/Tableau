@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tableau", "Tableau.csproj", "{7602C3D4-5499-49A7-2EB5-FBF1A713EE3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tableau.Editor", "Tableau.Editor.csproj", "{02910359-7243-B0E1-11BF-1033A86D1CBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7602C3D4-5499-49A7-2EB5-FBF1A713EE3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7602C3D4-5499-49A7-2EB5-FBF1A713EE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7602C3D4-5499-49A7-2EB5-FBF1A713EE3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7602C3D4-5499-49A7-2EB5-FBF1A713EE3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02910359-7243-B0E1-11BF-1033A86D1CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02910359-7243-B0E1-11BF-1033A86D1CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02910359-7243-B0E1-11BF-1033A86D1CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02910359-7243-B0E1-11BF-1033A86D1CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
